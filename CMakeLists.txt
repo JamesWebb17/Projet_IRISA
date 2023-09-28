@@ -3,4 +3,5 @@ project(Projet_IRISA C)
 
 set(CMAKE_C_STANDARD 11)
 
-add_executable(Projet_IRISA main.c)
+add_executable(Projet_IRISA main.c
+        allocationMemoire/AllocatioMémoireHard.c)
