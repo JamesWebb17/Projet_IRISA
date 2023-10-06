@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <fcntl.h>
 #include <unistd.h>
+#include <string.h>
+
 
 int main(int argc, char *argv[]) {
     if (argc != 2) {
@@ -87,5 +89,37 @@ int main(int argc, char *argv[]) {
     printf("Start Time (jiffies): %lu\n", starttime);
 
     close(fd);
+
+;
+    snprintf(path, sizeof(path), "/proc/%d/status", pid);
+
+    fd = openat(AT_FDCWD, path, O_RDONLY);
+    if (fd == -1) {
+        perror("openat");
+        return 1;
+    }
+
+    bytesRead = read(fd, buffer, sizeof(buffer) - 1);
+    if (bytesRead == -1) {
+        perror("read");
+        close(fd);
+        return 1;
+    }
+
+    buffer[bytesRead] = '\0'; // Null-terminate the string
+
+    // Find and extract the RSS (Resident Set Size) field
+    const char *rssLabel = "VmRSS:";
+    char *rssPtr = strstr(buffer, rssLabel);
+    if (rssPtr) {
+        long rssValue;
+        sscanf(rssPtr + strlen(rssLabel), "%ld", &rssValue);
+        printf("RSS (Resident Set Size): %ld kB\n", rssValue);
+    } else {
+        printf("RSS (Resident Set Size) not found in /proc/%d/status.\n", pid);
+    }
+
+    close(fd);
+
     return 0;
 }
