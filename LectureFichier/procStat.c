@@ -42,50 +42,53 @@ int rempliproStat( struct procStat * Procstat) {
     int cpuCount = 0;
     while (p != NULL) {
         printf("p : %s\n", p);
-        switch (i) {
-            case 0:
-                Procstat->cpu[cpuCount]->name = p;
-                break;
-            case 1:
-                Procstat->cpu[cpuCount]->user_time = atoi(p);
-                break;
-            case 2:
-                Procstat->cpu[cpuCount]->nice_time = atoi(p);
-                break;
-            case 3:
-                Procstat->cpu[cpuCount]->system_time = atoi(p);
-                break;
-            case 4:
-                Procstat->cpu[cpuCount]->idle_time = atoi(p);
-                break;
-            case 5:
-                Procstat->cpu[cpuCount]->iowait_time = atoi(p);
-                break;
-            case 6:
-                Procstat->cpu[cpuCount]->irq_time = atoi(p);
-                break;
-            case 7:
-                Procstat->cpu[cpuCount]->softirq_time = atoi(p);
-                break;
-            case 8:
-                Procstat->cpu[cpuCount]->steal_time = atoi(p);
-                break;
-            case 9:
-                Procstat->cpu[cpuCount]->guest_time = atoi(p);
-                break;
-            case 10:
-                Procstat->cpu[cpuCount]->guest_nice_time = atoi(p);
-                break;
-        }
-        i++;
-        if (i == 11) {
-            i = 0;
-            cpuCount++;
-        }
-        if (p=="intr") {
-            break;
 
+        if (cpuCount < Procstat->cpuCount) {
+            switch (i) {
+                case 0:
+                    Procstat->cpu[cpuCount]->name = p;
+                    break;
+                case 1:
+                    Procstat->cpu[cpuCount]->user_time = atoi(p);
+                    break;
+                case 2:
+                    Procstat->cpu[cpuCount]->nice_time = atoi(p);
+                    break;
+                case 3:
+                    Procstat->cpu[cpuCount]->system_time = atoi(p);
+                    break;
+                case 4:
+                    Procstat->cpu[cpuCount]->idle_time = atoi(p);
+                    break;
+                case 5:
+                    Procstat->cpu[cpuCount]->iowait_time = atoi(p);
+                    break;
+                case 6:
+                    Procstat->cpu[cpuCount]->irq_time = atoi(p);
+                    break;
+                case 7:
+                    Procstat->cpu[cpuCount]->softirq_time = atoi(p);
+                    break;
+                case 8:
+                    Procstat->cpu[cpuCount]->steal_time = atoi(p);
+                    break;
+                case 9:
+                    Procstat->cpu[cpuCount]->guest_time = atoi(p);
+                    break;
+                case 10:
+                    Procstat->cpu[cpuCount]->guest_nice_time = atoi(p);
+                    break;
+            }
+            i++;
+            if (i == 11) {
+                i = 0;
+                cpuCount++;
+            }
         }
+        else {
+            printf("cpuCount : %d\n", cpuCount);
+        }
+
         p = strtok(NULL, " ");
     }
     close(fd);
