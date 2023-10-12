@@ -79,7 +79,6 @@ int rempliproStat( struct procStat * Procstat) {
         i++;
         p = strtok(NULL, " ");
     }
-    Procstat->cpuCount = i-1;
     close(fd);
     return 0;
 }
@@ -112,6 +111,7 @@ void initProcStat(struct procStat * Procstat, int cpuCount) {
     for (int i = 0 ; i < cpuCount ; i++) {
         Procstat->cpu[i] = malloc(sizeof(struct procStatCpu));
     }
+    Procstat->cpuCount = cpuCount;
 }
 
 void main() {
