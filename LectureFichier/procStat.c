@@ -76,10 +76,12 @@ int rempliproStat( struct procStat * Procstat) {
             case 10:
                 Procstat->cpu[cpuCount]->guest_nice_time = atoi(p);
                 break;
-            default:
-                i=0;
         }
         i++;
+        if (i == 11) {
+            i = 0;
+            cpuCount++;
+        }
         p = strtok(NULL, " ");
     }
     close(fd);
