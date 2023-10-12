@@ -82,6 +82,9 @@ int rempliproStat( struct procStat * Procstat) {
             i = 0;
             cpuCount++;
         }
+        if (p=="intr") {
+            break;
+        }
         p = strtok(NULL, " ");
     }
     close(fd);
