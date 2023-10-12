@@ -109,6 +109,7 @@ int rempliproStat( struct procStat * Procstat) {
 
 void main() {
     struct procStat Procstat;
+    Procstat.cpu = malloc(sizeof(struct procStatCpu*)*12);
     rempliproStat(&Procstat);
     printProcStat(&Procstat);
 }
