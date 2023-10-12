@@ -84,6 +84,7 @@ int rempliproStat( struct procStat * Procstat) {
         }
         if (p=="intr") {
             break;
+
         }
         p = strtok(NULL, " ");
     }
