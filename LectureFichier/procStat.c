@@ -83,16 +83,31 @@ int rempliproStat( struct procStat * Procstat) {
     return 0;
 }
 
-void main() {
-    struct procStat Procstat;
-    rempliproStat(&Procstat);
-}
-
 /**
- * Affiche le contenu du fichier /proc/stat
+ * Affiche le contenu de la structure procStat
  * @param Procstat
  * @return 0 si tout s'est bien passé, 1 sinon
  */
+ int printProcStat(struct procStat * Procstat) {
+
+    printf("name : %s\n", Procstat->cpu->name);
+    printf("user_time : %d\n", Procstat->cpu->user_time);
+    printf("nice_time : %d\n", Procstat->cpu->nice_time);
+    printf("system_time : %d\n", Procstat->cpu->system_time);
+    printf("idle_time : %d\n", Procstat->cpu->idle_time);
+    printf("iowait_time : %d\n", Procstat->cpu->iowait_time);
+    printf("irq_time : %d\n", Procstat->cpu->irq_time);
+    printf("softirq_time : %d\n", Procstat->cpu->softirq_time);
+    printf("steal_time : %d\n", Procstat->cpu->steal_time);
+    printf("guest_time : %d\n", Procstat->cpu->guest_time);
+    printf("guest_nice_time : %d\n", Procstat->cpu->guest_nice_time);
+}
+
+void main() {
+    struct procStat Procstat;
+    rempliproStat(&Procstat);
+    printProcStat(&Procstat);
+}
 
 
 

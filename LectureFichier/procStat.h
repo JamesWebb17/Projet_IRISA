@@ -19,4 +19,20 @@ struct procStat {
     int * softirq ;       // Nombre d'interruptions logicielles par type
 } ;
 
+/**
+ * Récupère les informations du fichier /proc/stat
+ * @param Procstat
+ * @return 0 si tout s'est bien passé, 1 sinon
+ */
+int rempliproStat( struct procStat * Procstat);
+
+/**
+ * Affiche le contenu de la structure procStat
+ * @param Procstat
+ * @return 0 si tout s'est bien passé, 1 sinon
+ */
+int printProcStat(struct procStat * Procstat);
+
+
+
 #endif //PROJET_IRISA_PROCSTAT_H
