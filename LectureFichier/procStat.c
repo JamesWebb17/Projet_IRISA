@@ -107,9 +107,18 @@ int rempliproStat( struct procStat * Procstat) {
      }
 }
 
+void initProcStat(struct procStat * Procstat, int cpuCount) {
+    Procstat->cpu = malloc(sizeof(struct procStatCpu*)*cpuCount);
+    for (int i = 0 ; i < cpuCount ; i++) {
+        Procstat->cpu[i] = malloc(sizeof(struct procStatCpu));
+    }
+}
+
 void main() {
     struct procStat Procstat;
     Procstat.cpu = malloc(sizeof(struct procStatCpu*)*12);
+    initProcStat(&Procstat, 12);
+
     rempliproStat(&Procstat);
     printProcStat(&Procstat);
 }
