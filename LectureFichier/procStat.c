@@ -39,42 +39,44 @@ int rempliproStat( struct procStat * Procstat) {
 
     char *p = strtok(buffer, " ");
     int i = 0;
+    int cpuCount = 0;
     while (p != NULL) {
         printf("p : %s\n", p);
         switch (i) {
             case 0:
-                Procstat->cpu[i]->name = p;
+                Procstat->cpu[cpuCount]->name = p;
                 break;
             case 1:
-                Procstat->cpu[i]->user_time = atoi(p);
+                Procstat->cpu[cpuCount]->user_time = atoi(p);
                 break;
             case 2:
-                Procstat->cpu[i]->nice_time = atoi(p);
+                Procstat->cpu[cpuCount]->nice_time = atoi(p);
                 break;
             case 3:
-                Procstat->cpu[i]->system_time = atoi(p);
+                Procstat->cpu[cpuCount]->system_time = atoi(p);
                 break;
             case 4:
-                Procstat->cpu[i]->idle_time = atoi(p);
+                Procstat->cpu[cpuCount]->idle_time = atoi(p);
                 break;
             case 5:
-                Procstat->cpu[i]->iowait_time = atoi(p);
+                Procstat->cpu[cpuCount]->iowait_time = atoi(p);
                 break;
             case 6:
-                Procstat->cpu[i]->irq_time = atoi(p);
+                Procstat->cpu[cpuCount]->irq_time = atoi(p);
                 break;
             case 7:
-                Procstat->cpu[i]->softirq_time = atoi(p);
+                Procstat->cpu[cpuCount]->softirq_time = atoi(p);
                 break;
             case 8:
-                Procstat->cpu[i]->steal_time = atoi(p);
+                Procstat->cpu[cpuCount]->steal_time = atoi(p);
                 break;
             case 9:
-                Procstat->cpu[i]->guest_time = atoi(p);
+                Procstat->cpu[cpuCount]->guest_time = atoi(p);
                 break;
             case 10:
-                Procstat->cpu[i]->guest_nice_time = atoi(p);
+                Procstat->cpu[cpuCount]->guest_nice_time = atoi(p);
                 break;
+            if ()
         }
         i++;
         p = strtok(NULL, " ");
@@ -103,6 +105,7 @@ int rempliproStat( struct procStat * Procstat) {
          printf("steal_time : %d\n", Procstat->cpu[i]->steal_time);
          printf("guest_time : %d\n", Procstat->cpu[i]->guest_time);
          printf("guest_nice_time : %d\n", Procstat->cpu[i]->guest_nice_time);
+         printf("\n");
      }
 }
 
