@@ -1,28 +1,31 @@
 import matplotlib.pyplot as plt
+import numpy as np
 
 # Ouvrir le fichier et lire les lignes
 with open("tets.txt", "r") as file:
     lines = file.readlines()
 
-# Initialiser des listes pour stocker les valeurs
-cores = []
-usage = []
+# Initialiser une figure pour les 10 graphiques
+fig, axs = plt.subplots(5, 2, figsize=(12, 10))
+fig.suptitle("Utilisation du processeur par cœur")
 
 # Parcourir chaque ligne et extraire les valeurs
-for line in lines:
+for i, line in enumerate(lines):
     core_data = line.split(",")
     core_usage = [int(entry.split("%")[0]) for entry in core_data]
-    cores.append(list(range(1, len(core_usage) + 1))
-    usage.append(core_usage)
 
-    # Tracer le pourcentage d'utilisation pour chaque cœur
-    for core, core_usage in zip(cores, usage):
-        plt.plot(core, core_usage, marker='o')
+    # Créer un tableau numpy pour l'axe X (le temps)
+    x = np.arange(len(core_usage))
 
-    # Ajouter des étiquettes et un titre
-    plt.xlabel('Cœur de processeur')
-    plt.ylabel('% d\'utilisation')
-    plt.title('Utilisation du processeur par cœur')
+    # Tracer le graphique sur la sous-figure correspondante
+    row, col = i // 2, i % 2
+    axs[row, col].plot(x, core_usage, marker='o')
+    axs[row, col].set_title(f'Cœur de processeur {i + 1}')
+    axs[row, col].set_xlabel('Temps')
+    axs[row, col].set_ylabel('% d\'utilisation')
 
-    # Afficher le graphique
-    plt.show()
+# Ajuster l'espacement entre les graphiques pour une meilleure lisibilité
+plt.tight_layout()
+
+# Afficher les graphiques
+plt.show()
