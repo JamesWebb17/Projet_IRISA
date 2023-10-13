@@ -1,31 +1,29 @@
 import matplotlib.pyplot as plt
-import numpy as np
 
 # Ouvrir le fichier et lire les lignes
-with open("tets.txt", "r") as file:
+with open("./tegrastatCpuData.txt", "r") as file:
     lines = file.readlines()
+import matplotlib.pyplot as plt
 
-# Initialiser une figure pour les 10 graphiques
-fig, axs = plt.subplots(5, 2, figsize=(12, 10))
-fig.suptitle("Utilisation du processeur par cœur")
+# Nombre de cœurs
+num_cores = len(lines[0].split(","))
 
-# Parcourir chaque ligne et extraire les valeurs
-for i, line in enumerate(lines):
-    core_data = line.split(",")
+# Parcourir chaque cœur et créer un graphique dans sa propre fenêtre
+for core in range(num_cores):
+    core_data = [line.split(",")[core] for line in lines]
     core_usage = [int(entry.split("%")[0]) for entry in core_data]
 
+    # Créer une nouvelle figure pour chaque cœur
+    plt.figure(figsize=(6, 4))
+    
     # Créer un tableau numpy pour l'axe X (le temps)
-    x = np.arange(len(core_usage))
+    x = range(len(core_usage))
 
-    # Tracer le graphique sur la sous-figure correspondante
-    row, col = i // 2, i % 2
-    axs[row, col].plot(x, core_usage, marker='o')
-    axs[row, col].set_title(f'Cœur de processeur {i + 1}')
-    axs[row, col].set_xlabel('Temps')
-    axs[row, col].set_ylabel('% d\'utilisation')
-
-# Ajuster l'espacement entre les graphiques pour une meilleure lisibilité
-plt.tight_layout()
+    # Tracer le graphique pour chaque cœur
+    plt.plot(x, core_usage, marker='o')
+    plt.title(f'Cœur de processeur {core + 1}')
+    plt.xlabel('Temps')
+    plt.ylabel('% d\'utilisation')
 
 # Afficher les graphiques
 plt.show()
