@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 
 # Ouvrir le fichier et lire les lignes
-with open("./tegrastatCpuData.txt", "r") as file:
+with open("../tegrastat_CpuData.txt", "r") as file:
     lines = file.readlines()
 import matplotlib.pyplot as plt
 
@@ -20,7 +20,7 @@ for core in range(num_cores):
     x = range(len(core_usage))
 
     # Tracer le graphique pour chaque cœur
-    plt.plot(x, core_usage, marker='o')
+    plt.plot(x, core_usage)
     plt.title(f'Cœur de processeur {core + 1}')
     plt.xlabel('Temps')
     plt.ylabel('% d\'utilisation')

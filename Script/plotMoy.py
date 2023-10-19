@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 # Ouvrir le fichier et lire les lignes
-with open("./tegrastatCpuData.txt", "r") as file:
+with open("../tegrastat_CpuData.txt", "r") as file:
     lines = file.readlines()
 
 # Nombre de cœurs
@@ -25,7 +25,7 @@ plt.figure(figsize=(6, 4))
 x = range(len(average_data))
 
 # Tracer le graphique pour la moyenne
-plt.plot(x, average_data, marker='o')
+plt.plot(x, average_data)
 plt.title('Moyenne des cœurs de processeur')
 plt.xlabel('Temps')
 plt.ylabel('% d\'utilisation')

@@ -41,7 +41,7 @@ int rempliproStat( struct procStat * Procstat) {
     int i = 0;
     int cpuCount = 0;
     while (p != NULL) {
-        printf("p : %s\n", p);
+        printf("p : %s et i :%d\n", p , i);
 
         if (cpuCount < Procstat->cpuCount) {
             switch (i) {
@@ -80,13 +80,13 @@ int rempliproStat( struct procStat * Procstat) {
                     break;
             }
             i++;
-            if (i == 11) {
+            if (i == 10) {
                 i = 0;
                 cpuCount++;
             }
         }
         else {
-            printf("cpuCount : %d\n", cpuCount);
+            //printf("cpuCount : %d\n", cpuCount);
         }
 
         p = strtok(NULL, " ");

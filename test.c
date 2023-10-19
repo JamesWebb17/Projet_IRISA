@@ -111,6 +111,11 @@ int main(int argc, char *argv[]) {
     // Find and extract the RSS (Resident Set Size) field
     const char *rssLabel = "VmRSS:";
     char *rssPtr = strstr(buffer, rssLabel);
+
+    printf("\nContents of /proc/%d/status:\n%s\n", pid, buffer);
+
+    printf("\nContent : \n%s\n" , buffer);
+
     if (rssPtr) {
         long rssValue;
         sscanf(rssPtr + strlen(rssLabel), "%ld", &rssValue);
