@@ -49,8 +49,6 @@ class Stat:
             with open(f'/proc/{pid}/stat') as f:
             #with open(f'../Files/21863/stat.txt') as f:
                 data = f.read().split()
-                print(data)
-                print(len(data))
                 if len(data) >= 44:  # Assurez-vous que suffisamment de données ont été lues
                     self.name = data[1][1:-1]  # Nom du processus sans les parenthèses
                     self.state = data[2]
