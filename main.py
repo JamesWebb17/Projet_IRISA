@@ -32,6 +32,8 @@ def main():
     process_info = Stat(pid)
     uptime_info = Uptime()
 
+    temps_debut = int(time.time() * 1000)
+
     Liste_CPU = []
     Liste_temps = []
     compt = 0
@@ -42,7 +44,7 @@ def main():
         uptime_info.read_proc_uptime()
 
         Liste_CPU.append(calcul_utilisation_cpu(process_info, uptime_info, 100))
-        Liste_temps.append(temps_actuel_ms)
+        Liste_temps.append(temps_actuel_ms - temps_debut)
         compt += 1
 
         time.sleep(frequence)
