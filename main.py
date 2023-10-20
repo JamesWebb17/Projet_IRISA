@@ -3,6 +3,7 @@
 from Lecture_Fichier.stat import Stat
 from Lecture_Fichier.uptime import Uptime
 import time
+import matplotlib.pyplot as plt
 
 
 def calcul_utilisation_cpu(stat, uptime, clock_ticks_per_second):
@@ -17,6 +18,12 @@ def calcul_utilisation_cpu(stat, uptime, clock_ticks_per_second):
 
     return process_cpu_usage
 
+def plot_cpu_usage(cpu_usage_list, time_list):
+
+    plt.plot(time_list, cpu_usage_list)
+    plt.xlabel("Temps (ms)")
+    plt.ylabel("Utilisation du CPU (%)")
+    plt.show()
 
 def main():
     pid = 21863  # Remplacez par le PID du processus que vous souhaitez inspecter
@@ -26,22 +33,21 @@ def main():
     uptime_info = Uptime()
 
     Liste_CPU = []
+    Liste_temps = []
     compt = 0
     while compt < 100:
-        current_time = time.localtime()
+        temps_actuel_ms = int(time.time() * 1000)
 
         process_info.read_proc_stat(pid)
         uptime_info.read_proc_uptime()
 
-        # Formattez l'heure comme une chaîne de caractères
-        time_str = time.strftime("%H:%M:%S", current_time)
-
-        Liste_CPU.append([calcul_utilisation_cpu(process_info, uptime_info, 100), time_str])
+        Liste_CPU.append(calcul_utilisation_cpu(process_info, uptime_info, 100))
+        Liste_temps.append(temps_actuel_ms)
         compt += 1
 
         time.sleep(frequence)
 
-    print(Liste_CPU)
+    plot_cpu_usage(Liste_CPU , Liste_temps)
 
 
 if __name__ == "__main__":
