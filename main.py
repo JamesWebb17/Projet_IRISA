@@ -20,12 +20,12 @@ def calcul_utilisation_cpu(stat, uptime, clock_ticks_per_second):
 
 def main():
     pid = 21863  # Remplacez par le PID du processus que vous souhaitez inspecter
+    frequence = 0.1  # en seconde
     process_info = Stat(pid)
     process_info.read_proc_stat(pid)
     process_info.display_info()
     uptime_info = Uptime()
     uptime_info.read_proc_uptime()
-    print(f"Utilisation du CPU : {} %")
 
     Liste_CPU = []
     compt = 0
@@ -35,11 +35,13 @@ def main():
         # Formattez l'heure comme une chaîne de caractères
         time_str = time.strftime("%H:%M:%S", current_time)
 
-        Liste_CPU.append([calcul_utilisation_cpu(process_info,uptime_info,100),time_str])
+        Liste_CPU.append([calcul_utilisation_cpu(process_info, uptime_info, 100), time_str])
         compt += 1
+
+        time.sleep(frequence)
+
     print(Liste_CPU)
 
 
-
 if __name__ == "__main__":
-   main()
+    main()
