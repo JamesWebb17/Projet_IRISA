@@ -31,7 +31,7 @@ int main(int argc, char *argv[]) {
 
     buffer[bytesRead] = '\0'; // Null-terminate the string
 
-    printf("Contents of /proc/%d/stat:\n%s\n", pid, buffer);
+    printf("Contents of /proc/%d/stat:\n%s\n", pid, buffer)e;
 
     // Now, let's extract and explain individual fields in the buffer
     long pidValue;

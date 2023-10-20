@@ -10,15 +10,15 @@ sudo echo "c"
 
 #pcregrep -o '\[\K.*?\]' ./tegrastat.txt > tegrastat_CpuData.txt 
 
-pcregrep -o '(?<=\[)[^\]]+(?=\])' ./tegrastat.txt > ./tegrastat_Data/tegrastat_CpuData.txt 
+pcregrep -o '(?<=\[)[^\]]+(?=\])' ./tegrastat_Data/tegrastat.txt > ./tegrastat_Data/tegrastat_CpuData.txt 
 
-pcregrep -o1 'EMC_FREQ (\d+%@\d+)' ./tegrastat.txt > ./tegrastat_Data/tegrastat_MemData.txt
+pcregrep -o1 'EMC_FREQ (\d+%@\d+)' ./tegrastat_Data/tegrastat.txt > ./tegrastat_Data/tegrastat_MemData.txt
 
-pcregrep -o 'VDD_GPU_SOC \K\d+mW/\d+mW' ./tegrastat.txt | sed 's/mW\//;/g; s/mW//g' > ./tegrastat_Data/tegrastat_VDD_GPU_SOC.txt 
+pcregrep -o 'VDD_GPU_SOC \K\d+mW/\d+mW' ./tegrastat_Data/tegrastat.txt | sed 's/mW\//;/g; s/mW//g' > ./tegrastat_Data/tegrastat_VDD_GPU_SOC.txt 
 
-pcregrep -o 'VDD_CPU_CV \K\d+mW/\d+mW' ./tegrastat.txt | sed 's/mW\//;/g; s/mW//g' > ./tegrastat_Data/tegrastat_VDD_CPU_CV.txt 
+pcregrep -o 'VDD_CPU_CV \K\d+mW/\d+mW' ./tegrastat_Data/tegrastat.txt | sed 's/mW\//;/g; s/mW//g' > ./tegrastat_Data/tegrastat_VDD_CPU_CV.txt 
 
-pcregrep -o 'VIN_SYS_5V0 \K\d+mW/\d+mW' ./tegrastat.txt | sed 's/mW\//;/g; s/mW//g' > ./tegrastat_Data/tegrastat_VIN_SYS_5V0.txt 
+pcregrep -o 'VIN_SYS_5V0 \K\d+mW/\d+mW' ./tegrastat_Data/tegrastat.txt | sed 's/mW\//;/g; s/mW//g' > ./tegrastat_Data/tegrastat_VIN_SYS_5V0.txt 
 
-pcregrep -o 'VDDQ_VDD2_1V8AO \K\d+mW/\d+mW' ./tegrastat.txt | sed 's/mW\//;/g; s/mW//g' > ./tegrastat_Data/tegrastat_VDDQ_VDD2_1V8AO.txt 
+pcregrep -o 'VDDQ_VDD2_1V8AO \K\d+mW/\d+mW' ./tegrastat_Data/tegrastat.txt | sed 's/mW\//;/g; s/mW//g' > ./tegrastat_Data/tegrastat_VDDQ_VDD2_1V8AO.txt 
 

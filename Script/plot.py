@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 
 # Ouvrir le fichier et lire les lignes
-with open("../tegrastat_CpuData.txt", "r") as file:
+with open("../tegrastat_Data/tegrastat_CpuData.txt", "r") as file:
     lines = file.readlines()
 import matplotlib.pyplot as plt
 
