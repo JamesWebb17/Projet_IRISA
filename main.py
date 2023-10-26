@@ -10,13 +10,13 @@ import threading
 from shared import locking
 
 
-def plot_data(data_list, str):
-    with locking.lock:
+def plot_data(data_list, ylabel):
+    for i, data in enumerate(data_list):
         plt.figure()
-        plt.plot(data_list[0], data_list[1])
+        plt.plot(data[0], data[1])
         plt.xlabel("Temps (s)")
-        plt.ylabel(str)
-        plt.show()
+        plt.ylabel(ylabel[i])
+    plt.show()
 
 
 def main():
@@ -54,10 +54,7 @@ def main():
     for t in threads:
         t.join()
 
-    print(result)
-
-    plot_data(result[0], "Utilisation du cpu (%)")
-    plot_data(result[1], "Utilisation de la mémoire (%)")
+    plot_data(result, ["Utilisation du cpu (%)", "Utilisation de la mémoire (%)"])
 
 
 if __name__ == "__main__":
