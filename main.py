@@ -1,6 +1,7 @@
 from CPU import utilisation_cpu
 from Memoire import utilisation_mem
 import Arguments
+import shared.config as config
 
 import threading
 
@@ -12,6 +13,10 @@ def main():
     pid = args.PID
     frequence = args.Frequence
     nbre_points = args.Nombre
+
+    if args.verbose:
+        print("VERBOSE")
+        config.activer_mode_verbeux()
 
     if args.ALL:
         print("ALL")
@@ -32,9 +37,6 @@ def main():
 
     for t in threads:
         t.join()
-
-
-
 
 
 if __name__ == "__main__":

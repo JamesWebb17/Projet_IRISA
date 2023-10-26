@@ -42,7 +42,7 @@ def usage():
     parser.add_argument('-o', '--output',
                         help='Écrit toute les data dans un fichier',
                         action='store_true',
-                        type=str,
+                        #type=str,
                         dest='Output',
                         default=False)
 

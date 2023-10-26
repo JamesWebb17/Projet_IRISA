@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import time
 from Lecture_Fichier import Stat, Uptime
 
-import locking
+from shared import locking
 
 
 def calcul_utilisation_cpu(stat, uptime, clock_ticks_per_second):
@@ -26,6 +26,7 @@ def plot_cpu_usage(cpu_usage_list, time_list):
         plt.ylabel("Utilisation du CPU (%)")
         plt.show()
 
+
 def store_cpu_usage(cpu_usage_list, time_list, pid):
     with locking.lock:
         plt.figure()
@@ -36,8 +37,7 @@ def store_cpu_usage(cpu_usage_list, time_list, pid):
         plt.close()
 
 
-def utilisation_cpu(pid, frequence,nbre_points):
-
+def utilisation_cpu(pid, frequence, nbre_points):
     process_info = Stat(pid)
     uptime_info = Uptime()
 
@@ -58,4 +58,4 @@ def utilisation_cpu(pid, frequence,nbre_points):
 
         time.sleep(frequence)
 
-    store_cpu_usage(list_cpu, list_temps)
+    store_cpu_usage(list_cpu, list_temps, pid)

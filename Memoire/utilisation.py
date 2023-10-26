@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import time
 
 from Lecture_Fichier import Statm, Uptime
-import locking
+from shared import locking
 
 
 def calcul_utilisation_mem(statm, uptime, clock_ticks_per_second):
@@ -28,8 +28,17 @@ def plot_mem_usage(mem_usage_list, time_list):
         plt.show()
 
 
-def utilisation_mem(pid, frequence,nbre_points):
+def store_mem_usage(mem_usage_list, time_list, pid):
+    with locking.lock:
+        plt.figure()
+        plt.plot(time_list, mem_usage_list)
+        plt.xlabel("Temps (s)")
+        plt.ylabel("Utilisation de la mémoire (%)")
+        plt.savefig(f"MEM_{pid}.png")
+        plt.close()
 
+
+def utilisation_mem(pid, frequence, nbre_points):
     process_info = Statm(pid)
     uptime_info = Uptime()
 
@@ -50,4 +59,4 @@ def utilisation_mem(pid, frequence,nbre_points):
 
         time.sleep(frequence)
 
-    plot_mem_usage(list_mem, list_temps)
+    store_mem_usage(list_mem, list_temps,pid)
