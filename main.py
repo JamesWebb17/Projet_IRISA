@@ -3,7 +3,26 @@
 from Lecture_Fichier.stat import Stat
 from Lecture_Fichier.uptime import Uptime
 import time
+import sys
+import argparse
 import matplotlib.pyplot as plt
+
+def usage():
+    parser = argparse.ArgumentParser(description="Un programme avec des options en ligne de commande")
+
+    # Ajoutez ici vos options
+    parser.add_argument('-f', '--fichier', help='Spécifiez le fichier à traiter')
+    parser.add_argument('-v', '--verbose', action='store_true', help='Active le mode verbeux')
+
+    args = parser.parse_args()
+
+    if args.fichier:
+        print(f"Traitement du fichier : {args.fichier}")
+    else:
+        print("Aucun fichier spécifié.")
+
+    if args.verbose:
+        print("Mode verbeux activé.")
 
 
 def calcul_utilisation_cpu(stat, uptime, clock_ticks_per_second):
@@ -26,7 +45,8 @@ def plot_cpu_usage(cpu_usage_list, time_list):
     plt.show()
 
 def main():
-    pid = 21863  # Remplacez par le PID du processus que vous souhaitez inspecter
+    pid = sys.argv[1]
+    #pid = 21863  # Remplacez par le PID du processus que vous souhaitez inspecter
     frequence = 0.1  # en seconde
 
     process_info = Stat(pid)
