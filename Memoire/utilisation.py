@@ -28,7 +28,7 @@ def plot_mem_usage(mem_usage_list, time_list):
         plt.show()
 
 
-def utilisation_mem(pid, frequence):
+def utilisation_mem(pid, frequence,nbre_points):
 
     process_info = Statm(pid)
     uptime_info = Uptime()
@@ -38,7 +38,7 @@ def utilisation_mem(pid, frequence):
     list_mem = []
     list_temps = []
     compt = 0
-    while compt < 100:
+    while compt < nbre_points:
         temps_actuel_ms = int(time.time() * 1000)
 
         process_info.read_proc_statm()

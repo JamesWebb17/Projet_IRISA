@@ -27,7 +27,7 @@ def plot_cpu_usage(cpu_usage_list, time_list):
         plt.show()
 
 
-def utilisation_cpu(pid, frequence):
+def utilisation_cpu(pid, frequence,nbre_points):
 
     process_info = Stat(pid)
     uptime_info = Uptime()
@@ -37,7 +37,7 @@ def utilisation_cpu(pid, frequence):
     list_cpu = []
     list_temps = []
     compt = 0
-    while compt < 100:
+    while compt < nbre_points:
         temps_actuel_ms = int(time.time() * 1000)
 
         process_info.read_proc_stat()

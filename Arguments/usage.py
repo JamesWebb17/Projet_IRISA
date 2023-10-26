@@ -29,6 +29,11 @@ def usage():
                         action='store_true',
                         dest='MEM',
                         default=False)
+    parser.add_argument('-n', '--nombre',
+                        help='Nombre d\'échantillons',
+                        type=int,
+                        dest='Nombre',
+                        default=100)
 
     args = parser.parse_args()
 
