@@ -39,6 +39,11 @@ def usage():
                         action='store_true',
                         dest='ALL',
                         default=False)
+    parser.add_argument('-plot', '--plot',
+                        help='Affiche les graphiques',
+                        action='store_true',
+                        dest='Plot',
+                        default=False)
     parser.add_argument('-o', '--output',
                         help='Écrit toute les data dans un fichier',
                         action='store_true',

@@ -54,7 +54,8 @@ def main():
     for t in threads:
         t.join()
 
-    plot_data(result, ["Utilisation du cpu (%)", "Utilisation de la mémoire (%)"])
+    if args.Plot:
+        plot_data(result, ["Utilisation du cpu (%)", "Utilisation de la mémoire (kB)"])
 
 
 if __name__ == "__main__":
