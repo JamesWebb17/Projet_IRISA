@@ -38,7 +38,7 @@ def store_mem_usage(mem_usage_list, time_list, pid):
         plt.close()
 
 
-def utilisation_mem(pid, frequence, nbre_points,result=None):
+def utilisation_mem(pid, frequence, nbre_points,result):
     process_info = Statm(pid)
     uptime_info = Uptime()
 
@@ -59,4 +59,5 @@ def utilisation_mem(pid, frequence, nbre_points,result=None):
 
         time.sleep(frequence)
 
-    result.append(([list_temps,list_mem])) if result else store_mem_usage(list_mem, list_temps,pid)
+    result.append(([list_temps, list_mem]))
+    #store_mem_usage(list_mem, list_temps,pid)

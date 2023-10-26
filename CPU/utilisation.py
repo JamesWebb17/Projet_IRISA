@@ -37,7 +37,7 @@ def store_cpu_usage(cpu_usage_list, time_list, pid):
         plt.close()
 
 
-def utilisation_cpu(pid, frequence, nbre_points,result=None):
+def utilisation_cpu(pid, frequence, nbre_points, result):
     process_info = Stat(pid)
     uptime_info = Uptime()
 
@@ -58,4 +58,5 @@ def utilisation_cpu(pid, frequence, nbre_points,result=None):
 
         time.sleep(frequence)
 
-    result.append(([list_temps,list_cpu])) if result else store_cpu_usage(list_cpu, list_temps, pid)
+    result.append(([list_temps, list_cpu]))
+    #store_cpu_usage(list_cpu, list_temps, pid)

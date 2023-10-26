@@ -54,6 +54,8 @@ def main():
     for t in threads:
         t.join()
 
+    print(result)
+
     plot_data(result[0], "Utilisation du cpu (%)")
     plot_data(result[1], "Utilisation de la mémoire (%)")
 
