@@ -2,7 +2,7 @@ import argparse
 
 
 def usage():
-    parser = argparse.ArgumentParser(description="Un programme avec des options en ligne de commande")
+    parser = argparse.ArgumentParser(description="Programme de suivis des performances d'un processus.")
 
     # Ajoutez ici vos options
     parser.add_argument('-v', '--verbose',
@@ -34,6 +34,17 @@ def usage():
                         type=int,
                         dest='Nombre',
                         default=100)
+    parser.add_argument('-a', '--all',
+                        help='Affiche tous ce qui est possible',
+                        action='store_true',
+                        dest='ALL',
+                        default=False)
+    parser.add_argument('-o', '--output',
+                        help='Écrit toute les data dans un fichier',
+                        action='store_true',
+                        type=str,
+                        dest='Output',
+                        default=False)
 
     args = parser.parse_args()
 

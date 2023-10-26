@@ -22,9 +22,18 @@ def plot_cpu_usage(cpu_usage_list, time_list):
     with locking.lock:
         plt.figure()
         plt.plot(time_list, cpu_usage_list)
-        plt.xlabel("Temps (ms)")
+        plt.xlabel("Temps (s)")
         plt.ylabel("Utilisation du CPU (%)")
         plt.show()
+
+def store_cpu_usage(cpu_usage_list, time_list, pid):
+    with locking.lock:
+        plt.figure()
+        plt.plot(time_list, cpu_usage_list)
+        plt.xlabel("Temps (s)")
+        plt.ylabel("Utilisation du CPU (%)")
+        plt.savefig(f"CPU_{pid}.png")
+        plt.close()
 
 
 def utilisation_cpu(pid, frequence,nbre_points):
@@ -32,13 +41,13 @@ def utilisation_cpu(pid, frequence,nbre_points):
     process_info = Stat(pid)
     uptime_info = Uptime()
 
-    temps_debut = int(time.time() * 1000)
+    temps_debut = int(time.time())
 
     list_cpu = []
     list_temps = []
     compt = 0
     while compt < nbre_points:
-        temps_actuel_ms = int(time.time() * 1000)
+        temps_actuel_ms = int(time.time())
 
         process_info.read_proc_stat()
         uptime_info.read_proc_uptime()
@@ -49,4 +58,4 @@ def utilisation_cpu(pid, frequence,nbre_points):
 
         time.sleep(frequence)
 
-    plot_cpu_usage(list_cpu, list_temps)
+    store_cpu_usage(list_cpu, list_temps)

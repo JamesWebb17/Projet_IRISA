@@ -23,7 +23,7 @@ def plot_mem_usage(mem_usage_list, time_list):
     with locking.lock:
         plt.figure()
         plt.plot(time_list, mem_usage_list)
-        plt.xlabel("Temps (ms)")
+        plt.xlabel("Temps (s)")
         plt.ylabel("Utilisation de la mémoire (%)")
         plt.show()
 
@@ -33,13 +33,13 @@ def utilisation_mem(pid, frequence,nbre_points):
     process_info = Statm(pid)
     uptime_info = Uptime()
 
-    temps_debut = int(time.time() * 1000)
+    temps_debut = int(time.time())
 
     list_mem = []
     list_temps = []
     compt = 0
     while compt < nbre_points:
-        temps_actuel_ms = int(time.time() * 1000)
+        temps_actuel_ms = int(time.time())
 
         process_info.read_proc_statm()
         uptime_info.read_proc_uptime()

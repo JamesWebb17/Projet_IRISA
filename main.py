@@ -13,12 +13,18 @@ def main():
     frequence = args.Frequence
     nbre_points = args.Nombre
 
-    if args.CPU:
-        print("CPU")
+    if args.ALL:
+        print("ALL")
         threads.append(threading.Thread(target=utilisation_cpu, args=(pid, frequence,nbre_points), name="CPU"))
-    if args.MEM:
-        print("MEM")
         threads.append(threading.Thread(target=utilisation_mem, args=(pid, frequence,nbre_points), name="MEM"))
+
+    else:
+        if args.CPU:
+            print("CPU")
+            threads.append(threading.Thread(target=utilisation_cpu, args=(pid, frequence,nbre_points), name="CPU"))
+        if args.MEM:
+            print("MEM")
+            threads.append(threading.Thread(target=utilisation_mem, args=(pid, frequence,nbre_points), name="MEM"))
 
     for t in threads:
         print(f"Début du thread {t.name}")
