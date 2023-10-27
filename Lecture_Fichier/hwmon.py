@@ -14,8 +14,8 @@ class Hwmon:
         file_curr = "/sys/class/hwmon/hwmon" + hwmon_id + "/curr" + file_id + "_input"
 
         with open(file_in, "r") as f:
-            self.amps = int(f.read())
+            self.amps = f"{int(f.read()) / 100:,.2f}"
 
         with open(file_curr, "r") as f:
-            self.volts = int(f.read())
+            self.volts = f"{int(f.read()) / 100:,.2f}"
 
