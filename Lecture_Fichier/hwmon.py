@@ -5,7 +5,7 @@ class Hwmon:
         self.amps = 0
 
     def __set_name__(self, hwmon_id, file_id):
-        file_label = "/sys/class/hwmon" + hwmon_id + "/hwmon/in" + file_id + "_label"
+        file_label = "/sys/class/hwmon/hwmon" + hwmon_id + "/in" + file_id + "_label"
         with open(file_label, "r") as f:
             self.name = int(f.read())
 
