@@ -42,19 +42,16 @@ def utilisation_mem(pid, frequence, nbre_points,result):
     process_info = Statm(pid)
     uptime_info = Uptime()
 
-    temps_debut = int(time.time())
-
     list_mem = []
     list_temps = []
     compt = 0
     while compt < nbre_points:
-        temps_actuel_ms = int(time.time())
 
         process_info.read_proc_statm()
         uptime_info.read_proc_uptime()
 
         list_mem.append(process_info.size)
-        list_temps.append(temps_actuel_ms - temps_debut)
+        list_temps.append(compt*frequence)
         compt += 1
 
         time.sleep(frequence)

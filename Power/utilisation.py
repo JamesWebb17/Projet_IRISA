@@ -1,3 +1,4 @@
+import sys
 import time
 
 from Lecture_Fichier import Uptime, Hwmon
@@ -16,8 +17,6 @@ def utilisation_power(frequence, nbre_points, result):
 
     uptime_info = Uptime()
 
-    temps_debut = int(time.time())
-
     list_power_vdd_gpu_soc = []
     list_power_vdd_cpu_cv = []
     list_power_vin_sys_5_v0 = []
@@ -27,7 +26,6 @@ def utilisation_power(frequence, nbre_points, result):
 
     compt = 0
     while compt < nbre_points:
-        temps_actuel_ms = int(time.time())
 
         vdd_gpu_soc.read("3", "1")
         vdd_cpu_cv.read("3", "2")
@@ -41,7 +39,7 @@ def utilisation_power(frequence, nbre_points, result):
         list_power_vin_sys_5_v0.append(vin_sys_5_v0.amps * vin_sys_5_v0.volts)
         list_power_vddq_vdd2_1_v8_ao.append(vddq_vdd2_1_v8_ao.amps * vddq_vdd2_1_v8_ao.volts)
 
-        list_temps.append(temps_actuel_ms - temps_debut)
+        list_temps.append(compt*frequence)
         compt += 1
 
         time.sleep(frequence)

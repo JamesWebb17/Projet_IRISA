@@ -14,8 +14,10 @@ class Hwmon:
         file_curr = "/sys/class/hwmon/hwmon" + hwmon_id + "/curr" + file_id + "_input"
 
         with open(file_in, "r") as f:
-            self.amps = float(f"{int(f.read()) / 100:,.2f}")
+            #self.amps = float(f"{int(f.read()) / 100:,.2f}")
+            self.amps = int(f.read())
 
         with open(file_curr, "r") as f:
-            self.volts = float(f"{int(f.read()) / 100:,.2f}")
+            #self.volts = float(f"{int(f.read()) / 100:,.2f}")
+            self.volts = int(f.read())
 
