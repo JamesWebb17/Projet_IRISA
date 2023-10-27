@@ -29,10 +29,10 @@ def utilisation_power(frequence, nbre_points, result):
     while compt < nbre_points:
         temps_actuel_ms = int(time.time())
 
-        vdd_gpu_soc.read(3, 1)
-        vdd_cpu_cv.read(3, 2)
-        vin_sys_5_v0.read(3, 3)
-        vddq_vdd2_1_v8_ao.read(4, 2)
+        vdd_gpu_soc.read("3", "1")
+        vdd_cpu_cv.read("3", "2")
+        vin_sys_5_v0.read("3", "3")
+        vddq_vdd2_1_v8_ao.read("4", "2")
 
         uptime_info.read_proc_uptime()
 
