@@ -2,6 +2,7 @@
 from .stat import Stat
 from .uptime import Uptime
 from .statm import Statm
+from .hwmon import Hwmon
 
 # Vous pouvez également importer d'autres modules ou classes si nécessaire
 # from .autre_module import AutreClasse

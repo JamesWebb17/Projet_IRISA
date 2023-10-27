@@ -9,6 +9,7 @@ import shared.config as config
 
 import threading
 
+from Power import utilisation_power
 from shared import Result
 
 
@@ -18,6 +19,7 @@ def plot_data(data_list: [Result]):
         plt.plot(data.data[0], data.data[1])
         plt.xlabel("Temps (s)")
         plt.ylabel(data.message)
+        plt.title(data.name)
     plt.show()
 
 
@@ -38,6 +40,7 @@ def main():
         print("ALL")
         threads.append(threading.Thread(target=utilisation_cpu, args=(pid, frequence, nbre_points), name="CPU"))
         threads.append(threading.Thread(target=utilisation_mem, args=(pid, frequence, nbre_points), name="MEM"))
+        threads.append(threading.Thread(target=utilisation_power, args=(frequence, nbre_points, result), name="POWER"))
 
     else:
         if args.CPU:
@@ -48,6 +51,10 @@ def main():
             print("MEM")
             threads.append(
                 threading.Thread(target=utilisation_mem, args=(pid, frequence, nbre_points, result), name="MEM"))
+        if args.POWER:
+            print("POWER")
+            threads.append(
+                threading.Thread(target=utilisation_power, args=(frequence, nbre_points, result), name="POWER"))
 
     for t in threads:
         print(f"Début du thread {t.name}")

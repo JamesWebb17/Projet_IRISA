@@ -29,6 +29,11 @@ def usage():
                         action='store_true',
                         dest='MEM',
                         default=False)
+    parser.add_argument('-power', '--power',
+                        help='Affiche la consommation d\'énergie',
+                        action='store_true',
+                        dest='POWER',
+                        default=False)
     parser.add_argument('-n', '--nombre',
                         help='Nombre d\'échantillons',
                         type=int,
@@ -44,13 +49,10 @@ def usage():
                         action='store_true',
                         dest='Plot',
                         default=False)
-    parser.add_argument('-o', '--output',
+    parser.add_argument('-s', '--save',
                         help='Écrit toute les data dans un fichier',
-                        action='store_true',
-                        #type=str,
-                        dest='Output',
-                        default=False)
-
+                        type=str,
+                        dest='Save')
     args = parser.parse_args()
 
     return args
