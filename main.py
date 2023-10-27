@@ -1,3 +1,5 @@
+import csv
+
 from matplotlib import pyplot as plt
 
 from CPU import utilisation_cpu
@@ -7,15 +9,15 @@ import shared.config as config
 
 import threading
 
-from shared import locking
+from shared import Result
 
 
-def plot_data(data_list, ylabel):
+def plot_data(data_list: [Result]):
     for i, data in enumerate(data_list):
         plt.figure()
-        plt.plot(data[0], data[1])
+        plt.plot(data.data[0], data.data[1])
         plt.xlabel("Temps (s)")
-        plt.ylabel(ylabel[i])
+        plt.ylabel(data.message)
     plt.show()
 
 
@@ -55,7 +57,23 @@ def main():
         t.join()
 
     if args.Plot:
-        plot_data(result, ["Utilisation du cpu (%)", "Utilisation de la mémoire (kB)"])
+        plot_data(result)
+
+    if args.Save:
+        save_data(args.Save, result)
+
+
+def save_data(file_name, data: [Result]):
+    with open(file_name, mode='w', newline='') as fichier_csv:
+        writer = csv.writer(fichier_csv)
+
+        # Écrivez la première ligne avec les en-têtes des colonnes
+        writer.writerow(data[k].name for k in range(0, len(data)))
+
+        # Écrivez les données ligne par ligne
+        for t, c, m in zip(data[0][0], data[0][1], data[1][1]):
+            print(t, c, m)
+            writer.writerow([t, c, m])
 
 
 if __name__ == "__main__":

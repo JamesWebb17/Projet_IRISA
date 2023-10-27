@@ -3,6 +3,7 @@ import time
 from Lecture_Fichier import Stat, Uptime
 
 from shared import locking
+from shared import Result
 
 
 def calcul_utilisation_cpu(stat, uptime, clock_ticks_per_second):
@@ -58,5 +59,5 @@ def utilisation_cpu(pid, frequence, nbre_points, result):
 
         time.sleep(frequence)
 
-    result.append(([list_temps, list_cpu]))
+    result.append(Result("CPU",  "Utilisation du cpu (%)", [list_temps, list_cpu]))
     #store_cpu_usage(list_cpu, list_temps, pid)
