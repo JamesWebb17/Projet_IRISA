@@ -1,6 +1,19 @@
+""" @package read_file
+Documentation for statm module.
+
+More details.
+Class for reading hwmon files and create object Statm.
+"""
+
+
 class Statm:
 
     def __init__(self, pid):
+        """
+        The constructor for Statm class.
+        :param pid: pid of the process
+        """
+
         self.pid = pid
         self.size = 0
         self.resident = 0
@@ -11,6 +24,11 @@ class Statm:
         self.dt = 0
 
     def read_proc_statm(self):
+        """
+        Read the values of the Statm object.
+        :return:
+        """
+
         pid = self.pid
         try:
             with open(f'/proc/{pid}/statm') as f:
@@ -26,8 +44,14 @@ class Statm:
                     self.dt = int(data[6])
         except FileNotFoundError:
             print(f"Le fichier /proc/{pid}/statm n'existe pas.")
+            exit(1)
 
     def display_info(self):
+        """
+        Display the values of the Statm object.
+        :return:
+        """
+
         print(f"Taille totale : {self.size}")
         print(f"Taille résidente : {self.resident}")
         print(f"Taille partagée : {self.share}")

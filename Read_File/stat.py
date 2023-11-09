@@ -1,5 +1,18 @@
+""" @package read_file
+Documentation for stat module.
+
+More details.
+Class for reading stat files and create object Stat.
+"""
+
+
 class Stat:
     def __init__(self, pid):
+        """
+        The constructor for Stat class.
+        :param pid: pid of the process
+        """
+
         self.pid = pid  # PID du processus
         self.name = ""  # Nom du processus
         self.state = ""  # État du processus
@@ -45,6 +58,11 @@ class Stat:
         self.cguest_time = 0  # Temps utilisateur de l'invité (jiffies)
 
     def read_proc_stat(self):
+        """
+        Read the values of the Stat object.
+        :return:
+        """
+
         pid = self.pid
         try:
             with open(f'/proc/{pid}/stat') as f:
@@ -95,8 +113,14 @@ class Stat:
                     self.cguest_time = int(data[43])
         except FileNotFoundError:
             print(f"Le fichier /proc/{pid}/stat n'existe pas.")
+            exit(1)
 
     def display_info(self):
+        """
+        Display the values of the Stat object.
+        :return:
+        """
+
         print(f"Nom du processus : {self.name}")
         print(f"État du processus : {self.state}")
         print(f"PID du parent : {self.ppid}")
@@ -140,5 +164,3 @@ class Stat:
         print(
             f"Cumul des délais d'entrées et sorties, mesuré en top horloge (centième de seconde) : {self.delayacct_blkio_ticks}")
         print(f"Temps utilisateur de l'invité (jiffies) : {self.cguest_time}")
-
-

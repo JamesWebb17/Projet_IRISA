@@ -1,5 +1,3 @@
-# 
-
 # Overview
 
 This project is a tools like top, htop, etc. command in linux. 
@@ -13,13 +11,13 @@ This project is made by : Faucher Simon
 
 # Summary
 
-* [Contents](#Contents)
-  * [Sources files and folders](#Sources-files-and-folders)
-      * [Sources files](#Sources-files)
-      * [Sources folders](#Sources-folders)
+* [Contents](#contents)
+  * [Sources files and folders](#sources-files-and-folders)
+      * [Sources files](#sources-files)
+      * [Sources folders](#sources-folders)
 * [Installation](#installation)
-  * [Requirements](#Requirements)
-  * [Run the project](#Run-the-project)
+  * [Requirements](#requirements)
+  * [Run the project](#run-the-project)
 
 ## Contents
 
@@ -29,11 +27,12 @@ This project is made by : Faucher Simon
 * [main.py](./main.py) : Main file to run the project
 
 #### Sources folders
-* [Power](./Power) : Folder containing the power module
-* [Memory](./Memory) : Folder containing the memory module
-* [CPU](./CPU) : Folder containing the CPU module
-* [Read_File](./Read_File) : Folder containing the read_file module
 * [Arguments](./Arguments) : Folder containing the arguments module
+* [Read File](./Read_File) : Folder containing the read_file module
+* [CPU](./CPU) : Folder containing the CPU module
+* [Memory](./Memory) : Folder containing the memory module
+* [Power](./Power) : Folder containing the power module
+
 
 ## Installation
 
@@ -51,7 +50,7 @@ argparse : `pip install argparse`
 ### Run the project
 For run this project you need to have sudo rights. They are needed for the power module, to access to the power of the process.
 
-run the main.py file with the command `sudo python main.py [option]` in the terminal.
+run the main.py file with the command :`sudo python main.py -p PID [option]` in the terminal.
 
 #### Options are :
 * Help :
