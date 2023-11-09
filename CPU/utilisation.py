@@ -1,12 +1,25 @@
-import matplotlib.pyplot as plt
+""" @package CPU
+Documentation for CPU module.
+
+More details.
+Function for calculating the CPU usage of a process.
+"""
+
 import time
 
 from Read_File import Stat, Uptime
-from shared import locking
 from shared import Result
 
 
 def calcul_utilisation_cpu(stat, uptime, clock_ticks_per_second):
+    """
+    Calculate the CPU usage of a process.
+    :param stat: Object Stat read from /proc/[pid]/stat
+    :param uptime: Object Uptime read from /proc/uptime
+    :param clock_ticks_per_second: Number of clock ticks per second
+    :return: CPU usage of a process (in %)
+    """
+
     process_utime_sec = stat.utime / clock_ticks_per_second
     process_stime_sec = stat.stime / clock_ticks_per_second
     process_start_sec = stat.starttime / clock_ticks_per_second
@@ -19,41 +32,28 @@ def calcul_utilisation_cpu(stat, uptime, clock_ticks_per_second):
     return process_cpu_usage
 
 
-def plot_cpu_usage(cpu_usage_list, time_list):
-    with locking.lock:
-        plt.figure()
-        plt.plot(time_list, cpu_usage_list)
-        plt.xlabel("Temps (s)")
-        plt.ylabel("Utilisation du CPU (%)")
-        plt.show()
+def utilisation_cpu(pid, result, point_per_sec=10):
+    """
+    Find the CPU usage of a process in files /proc/[pid]/stat and /proc/uptime.
+    :param pid: pid of the process
+    :param result: array for sending the result to the main thread
+    :param point_per_sec: point per second wanted
+    :return: status of the function
+    """
 
-
-def store_cpu_usage(cpu_usage_list, time_list, pid):
-    with locking.lock:
-        plt.figure()
-        plt.plot(time_list, cpu_usage_list)
-        plt.xlabel("Temps (s)")
-        plt.ylabel("Utilisation du CPU (%)")
-        plt.savefig(f"CPU_{pid}.png")
-        plt.close()
-
-
-def utilisation_cpu(pid, frequence, nbre_points, result):
     process_info = Stat(pid)
     uptime_info = Uptime()
 
-    point_per_sec = 10
+    now = time.clock_gettime(time.CLOCK_REALTIME)
 
     list_cpu = []
     list_temps = []
-    compt = 0
     while process_info.read_proc_stat() != -1 and uptime_info.read_proc_uptime() != -1:
-
         list_cpu.append(calcul_utilisation_cpu(process_info, uptime_info, 100))
-        list_temps.append(compt * 60/point_per_sec)
-        compt += 1
+        list_temps.append(time.clock_gettime(time.CLOCK_REALTIME) - now)
 
-        time.sleep(60/point_per_sec)
+        time.sleep(60 / point_per_sec)
 
     result.append(Result("CPU", "Utilisation du cpu (%)", [list_temps, list_cpu]))
+    return 0
     # store_cpu_usage(list_cpu, list_temps, pid)
