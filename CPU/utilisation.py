@@ -52,7 +52,7 @@ def utilisation_cpu(pid, result, point_per_sec=10):
         list_cpu.append(calcul_utilisation_cpu(process_info, uptime_info, 100))
         list_temps.append(time.clock_gettime(time.CLOCK_REALTIME) - now)
 
-        time.sleep(60 / point_per_sec)
+        time.sleep(point_per_sec/60)
 
     result.append(Result("CPU", "Utilisation du cpu (%)", [list_temps, list_cpu]))
     return 0
