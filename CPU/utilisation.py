@@ -46,7 +46,8 @@ def utilisation_cpu(pid, frequence, nbre_points, result):
     list_temps = []
     compt = 0
     while compt < nbre_points:
-        process_info.read_proc_stat()
+        if not process_info.read_proc_stat() :
+            break
         uptime_info.read_proc_uptime()
 
         list_cpu.append(calcul_utilisation_cpu(process_info, uptime_info, 100))

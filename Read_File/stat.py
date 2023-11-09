@@ -113,7 +113,7 @@ class Stat:
                     self.cguest_time = int(data[43])
         except FileNotFoundError:
             print(f"Le fichier /proc/{pid}/stat n'existe pas.")
-            exit(1)
+            return -1
 
     def display_info(self):
         """
