@@ -1,7 +1,6 @@
-import sys
 import time
 
-from Lecture_Fichier import Uptime, Hwmon
+from Read_File import Uptime, Hwmon
 from shared import Result
 
 

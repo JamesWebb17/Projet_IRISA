@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import time
-from Lecture_Fichier import Stat, Uptime
 
+from Read_File import Stat, Uptime
 from shared import locking
 from shared import Result
 

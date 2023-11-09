@@ -13,8 +13,8 @@ class Statm:
     def read_proc_statm(self):
         pid = self.pid
         try:
-            with open(f'/proc/{pid}/statm') as f:
-            #with open(f'./Files/21863/statm.txt') as f:
+            #with open(f'/proc/{pid}/statm') as f:
+            with open(f'./Files/21863/statm.txt') as f:
                 data = f.read().split()
                 if len(data) >= 7:  # Assurez-vous que suffisamment de données ont été lues
                     self.size = int(data[0])

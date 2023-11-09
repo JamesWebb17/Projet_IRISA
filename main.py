@@ -1,14 +1,11 @@
 import csv
-
+import threading
 from matplotlib import pyplot as plt
 
 from CPU import utilisation_cpu
-from Memoire import utilisation_mem
+from Memory import utilisation_mem
 import Arguments
 import shared.config as config
-
-import threading
-
 from Power import utilisation_power
 from shared import Result
 
@@ -29,8 +26,8 @@ def main():
 
     args = Arguments.usage()
     pid = args.PID
-    frequence = args.Frequence
-    nbre_points = args.Nombre
+    frequence = args.Frequency
+    nbre_points = args.Number
 
     if args.verbose:
         print("VERBOSE")
