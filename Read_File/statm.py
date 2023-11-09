@@ -44,7 +44,7 @@ class Statm:
                     self.dt = int(data[6])
         except FileNotFoundError:
             print(f"Le fichier /proc/{pid}/statm n'existe pas.")
-            exit(1)
+            return -1
 
     def display_info(self):
         """

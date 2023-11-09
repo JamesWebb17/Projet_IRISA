@@ -29,7 +29,7 @@ class Hwmon:
                 self.name = str(f.read())
         except FileNotFoundError:
             print(f"Le fichier {file_label} n'existe pas.")
-            exit(1)
+            return -1
 
     def read(self, hwmon_id, file_id):
         """
@@ -46,12 +46,12 @@ class Hwmon:
                 self.amps = float(f"{int(f.read()) / 1000:,.3f}")
         except FileNotFoundError:
             print(f"Le fichier {file_in} n'existe pas.")
-            exit(1)
+            return -1
 
         try:
             with open(file_curr, "r") as f:
                 self.volts = int(f.read())
         except FileNotFoundError:
             print(f"Le fichier {file_curr} n'existe pas.")
-            exit(1)
+            return -1
 

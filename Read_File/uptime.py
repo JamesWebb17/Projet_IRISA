@@ -30,7 +30,7 @@ class Uptime:
                 self.idle_time = float(data[1])
         except FileNotFoundError:
             print("Le fichier /proc/uptime n'existe pas.")
-            exit(1)
+            return -1
 
     def display_info(self):
         """
