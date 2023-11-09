@@ -48,15 +48,15 @@ def usage():
                           dest='ALL',
                           default=False)
     optional.add_argument('-f', '--frequency',
-                          help='Sampling frequency in seconds',
-                          type=float,
-                          dest='Frequency',
-                          default=0.1)
-    optional.add_argument('-n', '--number',
-                          help='Number of samples',
+                          help='Number of points per second wanted',
                           type=int,
-                          dest='Number',
-                          default=100)
+                          dest='Frequency',
+                          default=10)
+    optional.add_argument('-i', '--interval',
+                          help='Time of inspection (in seconds)',
+                          type=int,
+                          dest='Interval',
+                          default=None)
     optional.add_argument('-plot', '--plot',
                           help='Display graphics',
                           action='store_true',

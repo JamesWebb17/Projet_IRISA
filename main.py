@@ -25,9 +25,6 @@ def main():
     result = []
 
     args = Arguments.usage()
-    pid = args.PID
-    frequence = args.Frequency
-    nbre_points = args.Number
 
     if args.verbose:
         print("VERBOSE")
@@ -35,23 +32,23 @@ def main():
 
     if args.ALL:
         print("ALL")
-        threads.append(threading.Thread(target=utilisation_cpu, args=(pid, result), name="CPU"))
-        threads.append(threading.Thread(target=utilisation_mem, args=(pid, frequence, nbre_points, result), name="MEM"))
-        threads.append(threading.Thread(target=utilisation_power, args=(frequence, nbre_points, result), name="POWER"))
+        threads.append(threading.Thread(target=utilisation_cpu, args=(args.PID, args.Frequency, args.Interval, result), name="CPU"))
+        threads.append(threading.Thread(target=utilisation_mem, args=(args.PID, args.Frequency, args.Interval, result), name="MEM"))
+        threads.append(threading.Thread(target=utilisation_power, args=(args.Frequency, args.Interval, result), name="POWER"))
 
     else:
         if args.CPU:
             print("CPU")
             threads.append(
-                threading.Thread(target=utilisation_cpu, args=(pid, result), name="CPU"))
+                    threading.Thread(target=utilisation_cpu, args=(args.PID, args.Frequency, args.Interval, result), name="CPU"))
         if args.MEM:
             print("MEM")
             threads.append(
-                threading.Thread(target=utilisation_mem, args=(pid, frequence, nbre_points, result), name="MEM"))
+                threading.Thread(target=utilisation_mem, args=(args.PID, args.Frequency, args.Interval, result), name="MEM"))
         if args.POWER:
             print("POWER")
             threads.append(
-                threading.Thread(target=utilisation_power, args=(frequence, nbre_points, result), name="POWER"))
+                threading.Thread(target=utilisation_power, args=(args.Frequency, args.Interval, result), name="POWER"))
 
     for t in threads:
         print(f"Début du thread {t.name}")

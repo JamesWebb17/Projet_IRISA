@@ -32,12 +32,13 @@ def calcul_utilisation_cpu(stat, uptime, clock_ticks_per_second):
     return process_cpu_usage
 
 
-def utilisation_cpu(pid, result, point_per_sec=10):
+def utilisation_cpu(pid, frequency, interval, result):
     """
     Find the CPU usage of a process in files /proc/[pid]/stat and /proc/uptime.
     :param pid: pid of the process
+    :param frequency: point per second wanted
+    :param interval: interval of time wanted
     :param result: array for sending the result to the main thread
-    :param point_per_sec: point per second wanted
     :return: status of the function
     """
 
@@ -48,11 +49,11 @@ def utilisation_cpu(pid, result, point_per_sec=10):
 
     list_cpu = []
     list_temps = []
-    while process_info.read_proc_stat() != -1 and uptime_info.read_proc_uptime() != -1:
+    while process_info.read_proc_stat() != -1 and uptime_info.read_proc_uptime() != -1 and time.clock_gettime(time.CLOCK_REALTIME) - now < interval:
         list_cpu.append(calcul_utilisation_cpu(process_info, uptime_info, 100))
         list_temps.append(time.clock_gettime(time.CLOCK_REALTIME) - now)
 
-        time.sleep(point_per_sec/60)
+        time.sleep(frequency / 60)
 
     result.append(Result("CPU", "Utilisation du cpu (%)", [list_temps, list_cpu]))
     return 0
