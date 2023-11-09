@@ -4,8 +4,8 @@ class Uptime:
         self.idle_time = 0
 
     def read_proc_uptime(self):
-        #with open('/proc/uptime') as f:
-        with open('./Files/uptime') as f:
+        with open('/proc/uptime') as f:
+        #with open('./Files/uptime') as f:
             data = f.read().split()
             self.total_time = float(data[0])
             self.idle_time = float(data[1])
