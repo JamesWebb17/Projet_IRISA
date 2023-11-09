@@ -53,10 +53,10 @@ def usage():
                           dest='Frequency',
                           default=10)
     optional.add_argument('-i', '--interval',
-                          help='Time of inspection (in seconds)',
-                          type=int,
+                          help='Time of inspection (in seconds) default: infinite',
+                          type=float,
                           dest='Interval',
-                          default=None)
+                          default=float('inf'))
     optional.add_argument('-plot', '--plot',
                           help='Display graphics',
                           action='store_true',

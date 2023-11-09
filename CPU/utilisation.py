@@ -45,13 +45,15 @@ def utilisation_cpu(pid, frequency, interval, result):
     process_info = Stat(pid)
     uptime_info = Uptime()
 
-    now = time.clock_gettime(time.CLOCK_REALTIME)
+    start = time.clock_gettime(time.CLOCK_REALTIME)
+    now = 0
 
     list_cpu = []
     list_temps = []
-    while process_info.read_proc_stat() != -1 and uptime_info.read_proc_uptime() != -1 and time.clock_gettime(time.CLOCK_REALTIME) - now < interval:
+    while process_info.read_proc_stat() != -1 and uptime_info.read_proc_uptime() != -1 and now - start < interval:
+        now = time.clock_gettime(time.CLOCK_REALTIME)
         list_cpu.append(calcul_utilisation_cpu(process_info, uptime_info, 100))
-        list_temps.append(time.clock_gettime(time.CLOCK_REALTIME) - now)
+        list_temps.append(now - start)
 
         time.sleep(frequency / 60)
 
