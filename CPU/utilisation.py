@@ -42,16 +42,18 @@ def utilisation_cpu(pid, frequence, nbre_points, result):
     process_info = Stat(pid)
     uptime_info = Uptime()
 
+    point_per_sec = 10
+
     list_cpu = []
     list_temps = []
     compt = 0
-    while process_info.read_proc_stat() != -1 or uptime_info.read_proc_uptime() != -1:
+    while process_info.read_proc_stat() != -1 and uptime_info.read_proc_uptime() != -1 and compt < nbre_points:
 
         list_cpu.append(calcul_utilisation_cpu(process_info, uptime_info, 100))
         list_temps.append(compt * frequence)
         compt += 1
 
-        time.sleep(frequence)
+        time.sleep(60/point_per_sec)
 
     result.append(Result("CPU", "Utilisation du cpu (%)", [list_temps, list_cpu]))
     # store_cpu_usage(list_cpu, list_temps, pid)
