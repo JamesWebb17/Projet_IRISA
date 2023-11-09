@@ -35,8 +35,8 @@ def main():
 
     if args.ALL:
         print("ALL")
-        threads.append(threading.Thread(target=utilisation_cpu, args=(pid, frequence, nbre_points), name="CPU"))
-        threads.append(threading.Thread(target=utilisation_mem, args=(pid, frequence, nbre_points), name="MEM"))
+        threads.append(threading.Thread(target=utilisation_cpu, args=(pid, frequence, nbre_points, result), name="CPU"))
+        threads.append(threading.Thread(target=utilisation_mem, args=(pid, frequence, nbre_points, result), name="MEM"))
         threads.append(threading.Thread(target=utilisation_power, args=(frequence, nbre_points, result), name="POWER"))
 
     else:
