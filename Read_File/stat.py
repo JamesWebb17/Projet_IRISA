@@ -19,9 +19,10 @@ class CPU:
         :param idle: idle time
         """
 
-        self.system = system
-        self.user = user
+        self.stime = system
+        self.utime = user
         self.nice = nice
+        self.starttime = 0
         self.idle = idle
 
     def __str__(self):
@@ -77,6 +78,7 @@ class Stat:
                         self.context_switches = int(parts[1])
                     elif parts[0] == 'btime':
                         self.boot_time = int(parts[1])
+                        self.cpu_stats.get("cpu").starttime = self.boot_time
                     elif parts[0] == 'processes':
                         self.processes_created = int(parts[1])
                     elif parts[0] == 'procs_running':

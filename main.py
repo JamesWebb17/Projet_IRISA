@@ -10,14 +10,12 @@ import threading
 from matplotlib import pyplot as plt
 
 import shared
-from CPU import utilisation_cpu
+from CPU import utilisation_cpu, utilisation_cpus
 from Memory import utilisation_mem
 import Arguments
 from Power import utilisation_power
-from shared import Result, flags
+from shared import flags
 from Read_File.stat import Stat
-
-
 
 
 def main():
@@ -37,7 +35,7 @@ def main():
     if args.ALL:
         if flags.VERBOSE_MODE_FLAG:
             print("Mode selected is ALL : CPU, MEM, POWER")
-        threads.append(threading.Thread(target=utilisation_cpu, args=(args.PID, args.Frequency, args.Interval, result), name="CPU"))
+        threads.append(threading.Thread(target=utilisation_cpus, args=(args.PID, args.Frequency, args.Interval, result), name="CPU"))
         threads.append(threading.Thread(target=utilisation_mem, args=(args.PID, args.Frequency, args.Interval, result), name="MEM"))
         threads.append(threading.Thread(target=utilisation_power, args=(args.Frequency, args.Interval, result), name="POWER"))
 

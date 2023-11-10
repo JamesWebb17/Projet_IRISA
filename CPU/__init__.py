@@ -1,4 +1,4 @@
-from .utilisation import utilisation_cpu
+from .utilisation import utilisation_cpu , utilisation_cpus
 
 
 

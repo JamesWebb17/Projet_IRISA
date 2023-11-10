@@ -8,6 +8,7 @@ Function for calculating the CPU usage of a process.
 import time
 
 from Read_File.PID import Stat as ProcStat
+from Read_File.stat import Stat
 from Read_File import Uptime
 from shared import Result, flags
 
@@ -54,6 +55,35 @@ def utilisation_cpu(pid, frequency, interval, result):
     while process_info.read_proc_stat() != -1 and uptime_info.read_proc_uptime() != -1 and now - start < interval:
         now = time.clock_gettime(time.CLOCK_REALTIME)
         list_cpu.append(calcul_utilisation_cpu(process_info, uptime_info, 100))
+        list_temps.append(now - start)
+
+        time.sleep(frequency / 60)
+
+    result.append(Result("CPU", "Utilisation du cpu (%)", [list_temps, list_cpu]))
+    flags.THREAD_CPU_END_FLAG = True
+    return 0
+
+
+def utilisation_cpus(frequency, interval, result):
+    """
+    Find the CPU usage of a process in files /proc/[pid]/stat and /proc/uptime.
+    :param frequency: point per second wanted
+    :param interval: interval of time wanted
+    :param result: array for sending the result to the main thread
+    :return: status of the function
+    """
+
+    process_info = Stat()
+    uptime_info = Uptime()
+
+    start = time.clock_gettime(time.CLOCK_REALTIME)
+    now = 0
+
+    list_cpu = []
+    list_temps = []
+    while process_info.read_stat() != -1 and uptime_info.read_proc_uptime() != -1 and now - start < interval:
+        now = time.clock_gettime(time.CLOCK_REALTIME)
+        list_cpu.append(calcul_utilisation_cpu(process_info.cpu_stats.keys("cpu"), uptime_info, 100))
         list_temps.append(now - start)
 
         time.sleep(frequency / 60)
