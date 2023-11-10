@@ -8,7 +8,7 @@ Function for calculating the Power usage of a process.
 import time
 
 from Read_File import Uptime, Hwmon
-from shared import Result
+from shared import Result, flags
 
 
 def utilisation_power(frequency, interval, result):
@@ -41,7 +41,11 @@ def utilisation_power(frequency, interval, result):
 
     list_temps = []
 
-    while vdd_gpu_soc.read("3", "1") !=-1 and vdd_cpu_cv.read("3", "2") != -1 and vin_sys_5_v0.read("3", "3") != -1 and vddq_vdd2_1_v8_ao.read("4", "2") != -1 and uptime_info.read_proc_uptime() != -1 and now - start < interval:
+    while (vdd_gpu_soc.read("3", "1") !=-1 and vdd_cpu_cv.read("3", "2") != -1 and
+           vin_sys_5_v0.read("3", "3") != -1 and vddq_vdd2_1_v8_ao.read("4", "2") != -1 and
+           uptime_info.read_proc_uptime() != -1 and now - start < interval and
+           (flags.THREAD_CPU_END_FLAG is False or flags.THREAD_MEM_END_FLAG is False)):
+
         now = time.clock_gettime(time.CLOCK_REALTIME)
 
         list_power_vdd_gpu_soc.append(vdd_gpu_soc.amps * vdd_gpu_soc.volts)

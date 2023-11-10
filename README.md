@@ -5,9 +5,11 @@ It finds the utilisation of the CPU, the memory and the power of a particular pr
 
 This project is made in python 3.8.5.
 
-This project is only made for linux (for the moment).
+This project is only made for Nvidia JetSon on linux distribution (for the moment).
 
 This project is made by : Faucher Simon
+
+Version : 1.0
 
 # Summary
 

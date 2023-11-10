@@ -13,7 +13,7 @@ from CPU import utilisation_cpu
 from Memory import utilisation_mem
 import Arguments
 from Power import utilisation_power
-from shared import Result,config
+from shared import Result, flags
 
 
 def plot_data(data_list: [Result]):
@@ -44,10 +44,10 @@ def main():
     args = Arguments.usage()
 
     if args.verbose:
-        config.activer_mode_verbeux()
+        flags.VERBOSE_MODE_FLAG = True
 
     if args.ALL:
-        if config.verbose_mode:
+        if flags.VERBOSE_MODE_FLAG:
             print("Mode selected is ALL : CPU, MEM, POWER")
         threads.append(threading.Thread(target=utilisation_cpu, args=(args.PID, args.Frequency, args.Interval, result), name="CPU"))
         threads.append(threading.Thread(target=utilisation_mem, args=(args.PID, args.Frequency, args.Interval, result), name="MEM"))
@@ -55,38 +55,38 @@ def main():
 
     else:
         if args.CPU:
-            if config.verbose_mode:
+            if flags.VERBOSE_MODE_FLAG:
                 print("Mode selected is CPU")
             threads.append(
                     threading.Thread(target=utilisation_cpu, args=(args.PID, args.Frequency, args.Interval, result), name="CPU"))
         if args.MEM:
-            if config.verbose_mode:
+            if flags.VERBOSE_MODE_FLAG:
                 print("Mode selected is MEM")
             threads.append(
                 threading.Thread(target=utilisation_mem, args=(args.PID, args.Frequency, args.Interval, result), name="MEM"))
         if args.POWER:
-            if config.verbose_mode:
+            if flags.VERBOSE_MODE_FLAG:
                 print("Mode selected is POWER")
             threads.append(
                 threading.Thread(target=utilisation_power, args=(args.Frequency, args.Interval, result), name="POWER"))
 
     for t in threads:
-        if config.verbose_mode:
+        if flags.VERBOSE_MODE_FLAG:
             print(f"Beginning of thread {t.name}")
         t.start()
 
     for t in threads:
         t.join()
-        if config.verbose_mode:
+        if flags.VERBOSE_MODE_FLAG:
             print(f"End of thread {t.name}")
 
     if args.Plot:
-        if config.verbose_mode:
+        if flags.VERBOSE_MODE_FLAG:
             print("Plotting data...")
         plot_data(result)
 
     if args.Save:
-        if config.verbose_mode:
+        if flags.VERBOSE_MODE_FLAG:
             print("Saving data...")
         save_data(args.Save, result)
 
