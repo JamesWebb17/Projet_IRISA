@@ -92,10 +92,8 @@ def save_data(file_name, data: [Result]):
     :return: status of the function
     """
 
-
-    # Écriture des données
     for result in data:
-        full_csv_file_name = csv_file + "_" + result.name + ".csv"
+        full_csv_file_name = file_name + "_" + result.name + ".csv"
         with open(full_csv_file_name, mode='w', newline='') as csv_file:
             csv_writer = csv.writer(csv_file)
 
@@ -104,7 +102,7 @@ def save_data(file_name, data: [Result]):
             for temp, data in zip(result.data[0], result.data[1]):
                 csv_writer.writerow([result.name, result.message, temp, data])
 
-    print(f"Les données ont été écrites dans {file_name}.")
+        print(f"Les données de " + result.name + " ont été écrites dans {full_csv_file_name}.")
 
 
 if __name__ == "__main__":
