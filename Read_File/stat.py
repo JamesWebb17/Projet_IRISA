@@ -10,6 +10,9 @@ class CPU:
         self.nice = nice
         self.idle = idle
 
+    def __str__(self):
+        return f"system: {self.system}, user: {self.user}, nice: {self.nice}, idle: {self.idle}"
+
 
 class Stat:
     def __init__(self):
