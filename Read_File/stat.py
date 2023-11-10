@@ -48,3 +48,9 @@ class Stat:
                 elif parts[0] == 'procs_blocked':
                     self.blocked_processes = int(parts[1])
 
+    def __str__(self):
+        result_str = ""
+        for key, value in self.cpu_stats.items():
+            result_str += f"{key}: {value}\n"
+        return result_str.strip()
+
