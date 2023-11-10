@@ -84,7 +84,7 @@ class Stat:
                         self.cpu_stats[str(parts[0])] = CPU(int(parts[1]), int(parts[2]), int(parts[3]),
                                                             [int(parts[4]), int(parts[5]), int(parts[6]), int(parts[7]),
                                                              int(parts[8]), int(parts[9]),
-                                                             int(parts[10]), int(parts[11])])
+                                                             int(parts[10])])
                     elif parts[0] == 'intr':
                         self.intr = str(parts[1:])
                     elif parts[0] == 'ctxt':
