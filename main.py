@@ -9,12 +9,15 @@ import csv
 import threading
 from matplotlib import pyplot as plt
 
+import shared
 from CPU import utilisation_cpu
 from Memory import utilisation_mem
 import Arguments
 from Power import utilisation_power
 from shared import Result, flags
 from Read_File.stat import Stat
+
+
 
 
 def main():
@@ -34,26 +37,21 @@ def main():
     if args.ALL:
         if flags.VERBOSE_MODE_FLAG:
             print("Mode selected is ALL : CPU, MEM, POWER")
-        threads.append(threading.Thread(target=utilisation_cpu, args=(args.PID, args.Frequency, args.Interval, result),
-                                        name="CPU"))
-        threads.append(threading.Thread(target=utilisation_mem, args=(args.PID, args.Frequency, args.Interval, result),
-                                        name="MEM"))
-        threads.append(
-            threading.Thread(target=utilisation_power, args=(args.Frequency, args.Interval, result), name="POWER"))
+        threads.append(threading.Thread(target=utilisation_cpu, args=(args.PID, args.Frequency, args.Interval, result), name="CPU"))
+        threads.append(threading.Thread(target=utilisation_mem, args=(args.PID, args.Frequency, args.Interval, result), name="MEM"))
+        threads.append(threading.Thread(target=utilisation_power, args=(args.Frequency, args.Interval, result), name="POWER"))
 
     else:
         if args.CPU:
             if flags.VERBOSE_MODE_FLAG:
                 print("Mode selected is CPU")
             threads.append(
-                threading.Thread(target=utilisation_cpu, args=(args.PID, args.Frequency, args.Interval, result),
-                                 name="CPU"))
+                    threading.Thread(target=utilisation_cpu, args=(args.PID, args.Frequency, args.Interval, result), name="CPU"))
         if args.MEM:
             if flags.VERBOSE_MODE_FLAG:
                 print("Mode selected is MEM")
             threads.append(
-                threading.Thread(target=utilisation_mem, args=(args.PID, args.Frequency, args.Interval, result),
-                                 name="MEM"))
+                threading.Thread(target=utilisation_mem, args=(args.PID, args.Frequency, args.Interval, result), name="MEM"))
         if args.POWER:
             if flags.VERBOSE_MODE_FLAG:
                 print("Mode selected is POWER")
@@ -73,20 +71,18 @@ def main():
     if args.Plot:
         if flags.VERBOSE_MODE_FLAG:
             print("Plotting data...")
-        for r in result:
-            r.plot_data()
+        shared.plot_data(result)
 
     if args.Save:
         if flags.VERBOSE_MODE_FLAG:
             print("Saving data...")
-        for r in result:
-            r.save_data(args.Save)
+        shared.save_data(args.Save, result)
 
     return 0
 
 
 if __name__ == "__main__":
-    main()
+    #main()
     stat_info = Stat()
     stat_info.read_stat()
 

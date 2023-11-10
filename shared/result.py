@@ -22,36 +22,39 @@ class Result:
         self.message = message
         self.data = data
 
-    def plot_data(self):
-        """
-        Plot the data in result.
-        :return: status of the function
-        """
 
-        for data in self.data:
-            plt.figure()
-            plt.plot(data[0], data[1])
-            plt.xlabel("Temps (s)")
-            plt.ylabel(self.message)
-            plt.title(self.name)
-        plt.show()
-        return 0
+def plot_data(data_list: [Result]):
+    """
+    Plot the data in the data_list.
+    :param data_list: list of data to plot
+    :return:
+    """
 
-    def save_data(self, file_name):
-        """
-        Save the data in a csv file.
-        :param file_name: name of the file
-        :return: status of the function
-        """
+    for i, data in enumerate(data_list):
+        plt.figure()
+        plt.plot(data.data[0], data.data[1])
+        plt.xlabel("Temps (s)")
+        plt.ylabel(data.message)
+        plt.title(data.name)
+    plt.show()
 
-        full_csv_file_name = file_name + "_" + self.name + ".csv"
+
+def save_data(file_name, data: [Result]):
+    """
+    Save the data in a csv file.
+    :param file_name: name of the file
+    :param data: data to save
+    :return: status of the function
+    """
+
+    for result in data:
+        full_csv_file_name = file_name + "_" + result.name + ".csv"
         with open(full_csv_file_name, mode='w', newline='') as csv_file:
             csv_writer = csv.writer(csv_file)
 
             # Écriture de l'en-tête
             csv_writer.writerow(["Name", "Message", "Temp", "Data"])
-            for temp, data in zip(self.data[0], self.data[1]):
-                csv_writer.writerow([self.name, self.message, temp, data])
+            for temp, data in zip(result.data[0], result.data[1]):
+                csv_writer.writerow([result.name, result.message, temp, data])
 
-        print(f"Les données de {self.name} ont été écrites dans {full_csv_file_name}.")
-
+        print(f"Les données de {result.name} ont été écrites dans {full_csv_file_name}.")
