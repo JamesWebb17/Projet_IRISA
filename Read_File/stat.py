@@ -32,8 +32,9 @@ class CPU:
         """
 
         return (
-            f"Time spend in system: {self.system}\n"
-            f"Time spend in user: {self.user}\n"
+            f"Time spend in system: {self.stime}\n"
+            f"Time spend in user: {self.utime}\n"
+            f"Time spend booting : {self.starttime}\n"
             f"Time spend in nice: {self.nice}\n"
             f"Time spend in idle: {self.idle}\n"
         )

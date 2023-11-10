@@ -80,7 +80,7 @@ def main():
 
 
 if __name__ == "__main__":
-    #main()
+    main()
     stat_info = Stat()
     stat_info.read_stat()
 
