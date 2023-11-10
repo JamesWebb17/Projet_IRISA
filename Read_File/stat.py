@@ -91,7 +91,7 @@ class Stat:
                         self.context_switches = int(parts[1])
                     elif parts[0] == 'btime':
                         self.boot_time = int(parts[1])
-                        self.cpu_stats.get("cpu").starttime = self.boot_time
+                        self.cpu_stats.get("cpu").starttime = self.boot_time - self.cpu_stats.get("cpu").starttime
                     elif parts[0] == 'processes':
                         self.processes_created = int(parts[1])
                     elif parts[0] == 'procs_running':
