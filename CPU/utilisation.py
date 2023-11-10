@@ -83,6 +83,7 @@ def utilisation_cpus(frequency, interval, result):
     list_temps = []
     while process_info.read_stat() != -1 and uptime_info.read_proc_uptime() != -1 and now - start < interval:
         now = time.clock_gettime(time.CLOCK_REALTIME)
+        process_info.cpu_stats.get("cpu").starttime = uptime_info.total_time + uptime_info.idle_time
         list_cpu.append(calcul_utilisation_cpu(process_info.cpu_stats.get("cpu"), uptime_info, 100))
         list_temps.append(now - start)
 
