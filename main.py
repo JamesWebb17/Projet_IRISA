@@ -77,6 +77,8 @@ def main():
 
     for t in threads:
         t.join()
+        if config.verbose_mode:
+            print(f"End of thread {t.name}")
 
     if args.Plot:
         if config.verbose_mode:
