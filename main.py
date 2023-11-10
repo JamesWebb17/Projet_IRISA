@@ -121,9 +121,4 @@ if __name__ == "__main__":
     stat_info = Stat()
     stat_info.read_stat()
 
-    print("CPU Stats:", stat_info.cpu_stats)
-    print("Context Switches:", stat_info.context_switches)
-    print("Boot Time:", stat_info.boot_time)
-    print("Processes Created:", stat_info.processes_created)
-    print("Running Processes:", stat_info.running_processes)
-    print("Blocked Processes:", stat_info.blocked_processes)
+    print("CPU Stats:\n", stat_info)

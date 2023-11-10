@@ -52,5 +52,11 @@ class Stat:
         result_str = ""
         for key, value in self.cpu_stats.items():
             result_str += f"{key}: {value}\n"
+        result_str += f"Interrupts: {self.intr}\n"
+        result_str += f"Context Switches: {self.context_switches}\n"
+        result_str += f"Boot Time: {self.boot_time}\n"
+        result_str += f"Processes Created: {self.processes_created}\n"
+        result_str += f"Running Processes: {self.running_processes}\n"
+        result_str += f"Blocked Processes: {self.blocked_processes}\n"
         return result_str.strip()
 
