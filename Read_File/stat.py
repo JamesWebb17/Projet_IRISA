@@ -11,7 +11,12 @@ class CPU:
         self.idle = idle
 
     def __str__(self):
-        return f"system: {self.system}, user: {self.user}, nice: {self.nice}, idle: {self.idle}"
+        return (
+            f"Time spend in system: {self.system}\n"
+            f"Time spend in user: {self.user}\n"
+            f"Time spend in nice: {self.nice}\n"
+            f"Time spend in idle: {self.idle}\n"
+        )
 
 
 class Stat:
