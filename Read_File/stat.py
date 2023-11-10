@@ -72,7 +72,7 @@ class Stat:
                 for line in stat_file:
                     parts = line.split()
                     if 'cpu' in parts[0]:
-                        self.cpu_stats[str(parts[0])] = CPU(int(parts[1]), parts[2], parts[3], parts[4:])
+                        self.cpu_stats[str(parts[0])] = CPU(int(parts[1]), int(parts[2]), int(parts[3]), int(parts[4:]))
                     elif parts[0] == 'intr':
                         self.intr = str(parts[1:])
                     elif parts[0] == 'ctxt':
