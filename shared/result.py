@@ -30,7 +30,7 @@ class Result:
 
         for data in self.data:
             plt.figure()
-            plt.plot(data.data[0], data.data[1])
+            plt.plot(data[0], data[1])
             plt.xlabel("Temps (s)")
             plt.ylabel(self.message)
             plt.title(self.name)
