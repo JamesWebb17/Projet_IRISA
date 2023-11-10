@@ -8,7 +8,7 @@ Function for calculating the Memory usage of a process.
 import time
 
 from Read_File import Statm, Uptime
-from shared import Result
+from shared import Result, flags
 
 
 def utilisation_mem(pid, frequency, interval, result):
@@ -38,6 +38,6 @@ def utilisation_mem(pid, frequency, interval, result):
 
         time.sleep(frequency / 60)
 
-    result.append(Result("MEM",  "Utilisation mémoire (mB)", [list_temps, list_mem]))
+    result.append(Result("MEM", "Utilisation mémoire (mB)", [list_temps, list_mem]))
+    flags.THREAD_MEM_END_FLAG = True
     return 0
-    #store_mem_usage(list_mem, list_temps,pid)

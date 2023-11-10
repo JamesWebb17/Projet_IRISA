@@ -8,7 +8,7 @@ Function for calculating the CPU usage of a process.
 import time
 
 from Read_File import Stat, Uptime
-from shared import Result
+from shared import Result, flags
 
 
 def calcul_utilisation_cpu(stat, uptime, clock_ticks_per_second):
@@ -58,5 +58,5 @@ def utilisation_cpu(pid, frequency, interval, result):
         time.sleep(frequency / 60)
 
     result.append(Result("CPU", "Utilisation du cpu (%)", [list_temps, list_cpu]))
+    flags.THREAD_CPU_END_FLAG = True
     return 0
-    # store_cpu_usage(list_cpu, list_temps, pid)
