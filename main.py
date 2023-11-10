@@ -12,9 +12,8 @@ from matplotlib import pyplot as plt
 from CPU import utilisation_cpu
 from Memory import utilisation_mem
 import Arguments
-import shared.config as config
 from Power import utilisation_power
-from shared import Result
+from shared import Result,config
 
 
 def plot_data(data_list: [Result]):
@@ -45,40 +44,48 @@ def main():
     args = Arguments.usage()
 
     if args.verbose:
-        print("VERBOSE")
         config.activer_mode_verbeux()
 
     if args.ALL:
-        print("ALL")
+        if config.verbose_mode:
+            print("Mode selected is ALL : CPU, MEM, POWER")
         threads.append(threading.Thread(target=utilisation_cpu, args=(args.PID, args.Frequency, args.Interval, result), name="CPU"))
         threads.append(threading.Thread(target=utilisation_mem, args=(args.PID, args.Frequency, args.Interval, result), name="MEM"))
         threads.append(threading.Thread(target=utilisation_power, args=(args.Frequency, args.Interval, result), name="POWER"))
 
     else:
         if args.CPU:
-            print("CPU")
+            if config.verbose_mode:
+                print("Mode selected is CPU")
             threads.append(
                     threading.Thread(target=utilisation_cpu, args=(args.PID, args.Frequency, args.Interval, result), name="CPU"))
         if args.MEM:
-            print("MEM")
+            if config.verbose_mode:
+                print("Mode selected is MEM")
             threads.append(
                 threading.Thread(target=utilisation_mem, args=(args.PID, args.Frequency, args.Interval, result), name="MEM"))
         if args.POWER:
-            print("POWER")
+            if config.verbose_mode:
+                print("Mode selected is POWER")
             threads.append(
                 threading.Thread(target=utilisation_power, args=(args.Frequency, args.Interval, result), name="POWER"))
 
     for t in threads:
-        print(f"Début du thread {t.name}")
+        if config.verbose_mode:
+            print(f"Beginning of thread {t.name}")
         t.start()
 
     for t in threads:
         t.join()
 
     if args.Plot:
+        if config.verbose_mode:
+            print("Plotting data...")
         plot_data(result)
 
     if args.Save:
+        if config.verbose_mode:
+            print("Saving data...")
         save_data(args.Save, result)
 
     return 0
