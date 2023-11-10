@@ -102,7 +102,7 @@ def save_data(file_name, data: [Result]):
             for temp, data in zip(result.data[0], result.data[1]):
                 csv_writer.writerow([result.name, result.message, temp, data])
 
-        print(f"Les données de " + result.name + " ont été écrites dans {full_csv_file_name}.")
+        print(f"Les données de {result.name} ont été écrites dans {full_csv_file_name}.")
 
 
 if __name__ == "__main__":
