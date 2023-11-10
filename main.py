@@ -32,30 +32,61 @@ def main():
     if args.verbose:
         flags.VERBOSE_MODE_FLAG = True
 
-    if args.ALL:
-        if flags.VERBOSE_MODE_FLAG:
-            print("Mode selected is ALL : CPU, MEM, POWER")
-        threads.append(threading.Thread(target=utilisation_cpus, args=(args.Frequency, args.Interval, result), name="CPU"))
-        #threads.append(threading.Thread(target=utilisation_cpu, args=(args.PID, args.Frequency, args.Interval, result), name="CPU"))
-        threads.append(threading.Thread(target=utilisation_mem, args=(args.PID, args.Frequency, args.Interval, result), name="MEM"))
-        threads.append(threading.Thread(target=utilisation_power, args=(args.Frequency, args.Interval, result), name="POWER"))
-
-    else:
-        if args.CPU:
+    if args.PID != 0:
+        print("Monitoring all information for the process with PID " + str(args.PID))
+        if args.ALL:
             if flags.VERBOSE_MODE_FLAG:
-                print("Mode selected is CPU")
+                print("Mode selected is ALL : CPU, MEM, POWER")
             threads.append(
-                    threading.Thread(target=utilisation_cpu, args=(args.PID, args.Frequency, args.Interval, result), name="CPU"))
-        if args.MEM:
-            if flags.VERBOSE_MODE_FLAG:
-                print("Mode selected is MEM")
+                threading.Thread(target=utilisation_cpu, args=(args.PID, args.Frequency, args.Interval, result),
+                                 name="CPU"))
             threads.append(
-                threading.Thread(target=utilisation_mem, args=(args.PID, args.Frequency, args.Interval, result), name="MEM"))
-        if args.POWER:
-            if flags.VERBOSE_MODE_FLAG:
-                print("Mode selected is POWER")
+                threading.Thread(target=utilisation_mem, args=(args.PID, args.Frequency, args.Interval, result),
+                                 name="MEM"))
             threads.append(
                 threading.Thread(target=utilisation_power, args=(args.Frequency, args.Interval, result), name="POWER"))
+
+        else:
+            if args.CPU:
+                if flags.VERBOSE_MODE_FLAG:
+                    print("Mode selected is CPU")
+                threads.append(
+                    threading.Thread(target=utilisation_cpu, args=(args.PID, args.Frequency, args.Interval, result),
+                                     name="CPU"))
+            if args.MEM:
+                if flags.VERBOSE_MODE_FLAG:
+                    print("Mode selected is MEM")
+                threads.append(
+                    threading.Thread(target=utilisation_mem, args=(args.PID, args.Frequency, args.Interval, result),
+                                     name="MEM"))
+            if args.POWER:
+                if flags.VERBOSE_MODE_FLAG:
+                    print("Mode selected is POWER")
+                threads.append(
+                    threading.Thread(target=utilisation_power, args=(args.Frequency, args.Interval, result),
+                                     name="POWER"))
+
+    else:
+        print("Monitoring CPU information without a focus on a process")
+        if args.ALL:
+            if flags.VERBOSE_MODE_FLAG:
+                print("Mode selected is ALL : CPU, POWER")
+                threads.append(
+                    threading.Thread(target=utilisation_cpus, args=(args.Frequency, args.Interval, result), name="CPU"))
+                threads.append(threading.Thread(target=utilisation_power, args=(args.Frequency, args.Interval, result),
+                                                name="POWER"))
+        else:
+            if args.CPU:
+                if flags.VERBOSE_MODE_FLAG:
+                    print("Mode selected is CPU")
+                threads.append(
+                    threading.Thread(target=utilisation_cpus, args=(args.Frequency, args.Interval, result), name="CPU"))
+            if args.POWER:
+                if flags.VERBOSE_MODE_FLAG:
+                    print("Mode selected is POWER")
+                threads.append(
+                    threading.Thread(target=utilisation_power, args=(args.Frequency, args.Interval, result),
+                                     name="POWER"))
 
     for t in threads:
         if flags.VERBOSE_MODE_FLAG:
@@ -82,7 +113,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-    stat_info = Stat()
-    stat_info.read_stat()
-
-    print("CPU Stats:\n", stat_info)

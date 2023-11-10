@@ -34,7 +34,7 @@ def usage():
     obligatory.add_argument('-p', '--pid',
                             help='PID of the process to be inspected',
                             type=int,
-                            required=True,
+                            required=False,
                             dest='PID',
                             default=0)
 

@@ -22,8 +22,8 @@ class CPU:
         self.stime = system
         self.utime = user
         self.nice = nice
-        self.starttime = 0
         self.idle = idle
+        self.starttime = self.calculate_time_idle()
 
     def __str__(self):
         """
@@ -39,6 +39,15 @@ class CPU:
             f"Time spend in idle: {self.idle}\n"
         )
 
+    def calculate_time_idle(self):
+        """
+        Calculate the time spend in idle.
+        :return: the time spend in idle
+        """
+        cal = 0
+        for elt in self.idle:
+            cal += elt
+        return cal
 
 class Stat:
     """
@@ -72,7 +81,10 @@ class Stat:
                 for line in stat_file:
                     parts = line.split()
                     if 'cpu' in parts[0]:
-                        self.cpu_stats[str(parts[0])] = CPU(int(parts[1]), int(parts[2]), int(parts[3]), str(parts[4:]))
+                        self.cpu_stats[str(parts[0])] = CPU(int(parts[1]), int(parts[2]), int(parts[3]),
+                                                            [int(parts[4]), int(parts[5]), int(parts[6]), int(parts[7]),
+                                                             int(parts[8]), int(parts[9]),
+                                                             int(parts[10]), int(parts[11])])
                     elif parts[0] == 'intr':
                         self.intr = str(parts[1:])
                     elif parts[0] == 'ctxt':
