@@ -1,3 +1,10 @@
+"""
+This is the main file of the project. It is used to launch the program.
+
+More details.
+
+"""
+
 import csv
 import threading
 from matplotlib import pyplot as plt
@@ -11,6 +18,12 @@ from shared import Result
 
 
 def plot_data(data_list: [Result]):
+    """
+    Plot the data in the data_list.
+    :param data_list: list of data to plot
+    :return:
+    """
+
     for i, data in enumerate(data_list):
         plt.figure()
         plt.plot(data.data[0], data.data[1])
@@ -21,6 +34,11 @@ def plot_data(data_list: [Result]):
 
 
 def main():
+    """
+    Main function of the program.
+    :return: status of the program
+    """
+
     threads = []
     result = []
 
@@ -63,18 +81,29 @@ def main():
     if args.Save:
         save_data(args.Save, result)
 
+    return 0
+
 
 def save_data(file_name, data: [Result]):
-    with open(file_name, mode='w', newline='') as fichier_csv:
-        writer = csv.writer(fichier_csv)
+    """
+    Save the data in a csv file.
+    :param file_name: name of the file
+    :param data: data to save
+    :return: status of the function
+    """
 
-        # Écrivez la première ligne avec les en-têtes des colonnes
-        writer.writerow(data[k].name for k in range(0, len(data)))
+    with open(file_name, mode='w', newline='') as csv_file:
+        csv_writer = csv.writer(csv_file)
 
-        # Écrivez les données ligne par ligne
-        for t, c, m in zip(data[0][0], data[0][1], data[1][1]):
-            print(t, c, m)
-            writer.writerow([t, c, m])
+        # Écriture de l'en-tête
+        csv_writer.writerow(["Name", "Message", "Temp", "Data"])
+
+        # Écriture des données
+        for result in data:
+            for temp, data in zip(result.data[0], result.data[1]):
+                csv_writer.writerow([result.name, result.message, temp, data])
+
+        print(f"Les données ont été écrites dans {file_name}.")
 
 
 if __name__ == "__main__":
