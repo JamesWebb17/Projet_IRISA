@@ -7,7 +7,8 @@ Function for calculating the CPU usage of a process.
 
 import time
 
-from Read_File import Stat, Uptime
+from Read_File.PID import Stat as ProcStat
+from Read_File import Uptime
 from shared import Result, flags
 
 
@@ -42,7 +43,7 @@ def utilisation_cpu(pid, frequency, interval, result):
     :return: status of the function
     """
 
-    process_info = Stat(pid)
+    process_info = ProcStat(pid)
     uptime_info = Uptime()
 
     start = time.clock_gettime(time.CLOCK_REALTIME)

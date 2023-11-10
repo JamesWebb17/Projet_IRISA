@@ -14,6 +14,7 @@ from Memory import utilisation_mem
 import Arguments
 from Power import utilisation_power
 from shared import Result, flags
+from Read_File.stat import Stat
 
 
 def plot_data(data_list: [Result]):
@@ -115,4 +116,14 @@ def save_data(file_name, data: [Result]):
 
 
 if __name__ == "__main__":
-    main()
+    #main()
+    # Example usage:
+    stat_info = Stat()
+    stat_info.read_stat()
+
+    print("CPU Stats:", stat_info.cpu_stats)
+    print("Context Switches:", stat_info.context_switches)
+    print("Boot Time:", stat_info.boot_time)
+    print("Processes Created:", stat_info.processes_created)
+    print("Running Processes:", stat_info.running_processes)
+    print("Blocked Processes:", stat_info.blocked_processes)

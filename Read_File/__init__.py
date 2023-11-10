@@ -1,11 +1,7 @@
-# Importation de la classe Stat
-from .stat import Stat
-from .uptime import Uptime
-from .statm import Statm
-from .hwmon import Hwmon
+from Read_File.uptime import Uptime
+from Read_File.hwmon import Hwmon
+from Read_File.PID.stat import Stat
 
-# Vous pouvez également importer d'autres modules ou classes si nécessaire
-# from .autre_module import AutreClasse
 
 # Documentation du package
 __doc__ = "Package pour la lecture de fichiers et la gestion des statistiques."

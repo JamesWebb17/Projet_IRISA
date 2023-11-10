@@ -1,4 +1,4 @@
-""" @package read_file
+""" @package PID
 Documentation for statm module.
 
 More details.
