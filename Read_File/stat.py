@@ -4,13 +4,32 @@ This file contains the Stat class which is used to read the /proc/stat file
 
 
 class CPU:
+    """ Documentation for CPU class
+
+    More details.
+    Class which is used to represent lines containing CPU statistics in the /proc/stat file.
+    """
+
     def __init__(self, system, user, nice, idle):
+        """
+        The constructor for CPU class.
+        :param system: time spend in system
+        :param user: time spend in user
+        :param nice: time spend in nice
+        :param idle: idle time
+        """
+
         self.system = system
         self.user = user
         self.nice = nice
         self.idle = idle
 
     def __str__(self):
+        """
+        Return a string representation of the CPU object.
+        :return: the string representation of the CPU object
+        """
+
         return (
             f"Time spend in system: {self.system}\n"
             f"Time spend in user: {self.user}\n"
@@ -20,7 +39,18 @@ class CPU:
 
 
 class Stat:
+    """
+    Documentation for Stat class
+
+    More details.
+    Class which is used to read the /proc/stat file.
+    """
+
     def __init__(self):
+        """
+        The constructor for Stat class.
+        """
+
         self.cpu_stats = {}
         self.intr = 0
         self.context_switches = 0
@@ -30,25 +60,38 @@ class Stat:
         self.blocked_processes = 0
 
     def read_stat(self):
-        with open('/proc/stat', 'r') as stat_file:
-            for line in stat_file:
-                parts = line.split()
-                if 'cpu' in parts[0]:
-                    self.cpu_stats[str(parts[0])] = CPU(int(parts[1]), parts[2], parts[3], parts[4:])
-                elif parts[0] == 'intr':
-                    self.intr = str(parts[1:])
-                elif parts[0] == 'ctxt':
-                    self.context_switches = int(parts[1])
-                elif parts[0] == 'btime':
-                    self.boot_time = int(parts[1])
-                elif parts[0] == 'processes':
-                    self.processes_created = int(parts[1])
-                elif parts[0] == 'procs_running':
-                    self.running_processes = int(parts[1])
-                elif parts[0] == 'procs_blocked':
-                    self.blocked_processes = int(parts[1])
+        """
+        Read the /proc/stat file and store the data in the Stat object.
+        :return: status of the read
+        """
+
+        try:
+            with open('/proc/stat', 'r') as stat_file:
+                for line in stat_file:
+                    parts = line.split()
+                    if 'cpu' in parts[0]:
+                        self.cpu_stats[str(parts[0])] = CPU(int(parts[1]), parts[2], parts[3], parts[4:])
+                    elif parts[0] == 'intr':
+                        self.intr = str(parts[1:])
+                    elif parts[0] == 'ctxt':
+                        self.context_switches = int(parts[1])
+                    elif parts[0] == 'btime':
+                        self.boot_time = int(parts[1])
+                    elif parts[0] == 'processes':
+                        self.processes_created = int(parts[1])
+                    elif parts[0] == 'procs_running':
+                        self.running_processes = int(parts[1])
+                    elif parts[0] == 'procs_blocked':
+                        self.blocked_processes = int(parts[1])
+        except FileNotFoundError:
+            print("Le fichier /proc/stat n'existe pas.")
+            return -1
 
     def __str__(self):
+        """
+        Return a string representation of the Stat object.
+        :return: the string representation of the Stat object
+        """
         result_str = ""
         for key, value in self.cpu_stats.items():
             result_str += f"{key}: {value}\n"
@@ -59,4 +102,3 @@ class Stat:
         result_str += f"Running Processes: {self.running_processes}\n"
         result_str += f"Blocked Processes: {self.blocked_processes}\n"
         return result_str.strip()
-

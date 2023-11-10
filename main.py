@@ -17,22 +17,6 @@ from shared import Result, flags
 from Read_File.stat import Stat
 
 
-def plot_data(data_list: [Result]):
-    """
-    Plot the data in the data_list.
-    :param data_list: list of data to plot
-    :return:
-    """
-
-    for i, data in enumerate(data_list):
-        plt.figure()
-        plt.plot(data.data[0], data.data[1])
-        plt.xlabel("Temps (s)")
-        plt.ylabel(data.message)
-        plt.title(data.name)
-    plt.show()
-
-
 def main():
     """
     Main function of the program.
@@ -50,21 +34,26 @@ def main():
     if args.ALL:
         if flags.VERBOSE_MODE_FLAG:
             print("Mode selected is ALL : CPU, MEM, POWER")
-        threads.append(threading.Thread(target=utilisation_cpu, args=(args.PID, args.Frequency, args.Interval, result), name="CPU"))
-        threads.append(threading.Thread(target=utilisation_mem, args=(args.PID, args.Frequency, args.Interval, result), name="MEM"))
-        threads.append(threading.Thread(target=utilisation_power, args=(args.Frequency, args.Interval, result), name="POWER"))
+        threads.append(threading.Thread(target=utilisation_cpu, args=(args.PID, args.Frequency, args.Interval, result),
+                                        name="CPU"))
+        threads.append(threading.Thread(target=utilisation_mem, args=(args.PID, args.Frequency, args.Interval, result),
+                                        name="MEM"))
+        threads.append(
+            threading.Thread(target=utilisation_power, args=(args.Frequency, args.Interval, result), name="POWER"))
 
     else:
         if args.CPU:
             if flags.VERBOSE_MODE_FLAG:
                 print("Mode selected is CPU")
             threads.append(
-                    threading.Thread(target=utilisation_cpu, args=(args.PID, args.Frequency, args.Interval, result), name="CPU"))
+                threading.Thread(target=utilisation_cpu, args=(args.PID, args.Frequency, args.Interval, result),
+                                 name="CPU"))
         if args.MEM:
             if flags.VERBOSE_MODE_FLAG:
                 print("Mode selected is MEM")
             threads.append(
-                threading.Thread(target=utilisation_mem, args=(args.PID, args.Frequency, args.Interval, result), name="MEM"))
+                threading.Thread(target=utilisation_mem, args=(args.PID, args.Frequency, args.Interval, result),
+                                 name="MEM"))
         if args.POWER:
             if flags.VERBOSE_MODE_FLAG:
                 print("Mode selected is POWER")
@@ -84,40 +73,20 @@ def main():
     if args.Plot:
         if flags.VERBOSE_MODE_FLAG:
             print("Plotting data...")
-        plot_data(result)
+        for r in result:
+            r.plot_data()
 
     if args.Save:
         if flags.VERBOSE_MODE_FLAG:
             print("Saving data...")
-        save_data(args.Save, result)
+        for r in result:
+            r.save_data(args.Save)
 
     return 0
 
 
-def save_data(file_name, data: [Result]):
-    """
-    Save the data in a csv file.
-    :param file_name: name of the file
-    :param data: data to save
-    :return: status of the function
-    """
-
-    for result in data:
-        full_csv_file_name = file_name + "_" + result.name + ".csv"
-        with open(full_csv_file_name, mode='w', newline='') as csv_file:
-            csv_writer = csv.writer(csv_file)
-
-            # Écriture de l'en-tête
-            csv_writer.writerow(["Name", "Message", "Temp", "Data"])
-            for temp, data in zip(result.data[0], result.data[1]):
-                csv_writer.writerow([result.name, result.message, temp, data])
-
-        print(f"Les données de {result.name} ont été écrites dans {full_csv_file_name}.")
-
-
 if __name__ == "__main__":
-    #main()
-    # Example usage:
+    main()
     stat_info = Stat()
     stat_info.read_stat()
 
