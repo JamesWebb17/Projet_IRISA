@@ -8,7 +8,7 @@ julia_getpid="getpid()"
 julia_function_apprentissage="tup = f1_vs_epoch()"
 
 # Ouvrir le premier terminal pour Julia
-gnome-terminal --tab --command "cd ~/Desktop/NOP_DeepLearning; juliadev -t auto -O3; julia -e 'println( getpid() )'" &
+gnome-terminal --tab --bash "cd ~/Desktop/NOP_DeepLearning; juliadev -t auto -O3; julia -e 'println( getpid() )'" &
 
 # Attendre un court instant pour laisser le premier terminal s'ouvrir
 sleep 2
