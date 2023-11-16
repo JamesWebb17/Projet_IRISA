@@ -111,10 +111,5 @@ def main():
 
 
 if __name__ == "__main__":
-    #main()
-    # Exemple d'utilisation
-    mem_info = MemInfo()
-    mem_info.read_meminfo()
+    main()
 
-    # Accéder aux informations
-    print(mem_info)
