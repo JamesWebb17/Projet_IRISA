@@ -7,15 +7,14 @@ More details.
 
 import csv
 import threading
-from matplotlib import pyplot as plt
 
 import shared
 from CPU import utilisation_cpu, utilisation_cpus
 from Memory import utilisation_mem
 import Arguments
 from Power import utilisation_power
+from Read_File.meminfo import MemInfo
 from shared import flags
-from Read_File.stat import Stat
 
 
 def main():
@@ -112,4 +111,10 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    #main()
+    # Exemple d'utilisation
+    mem_info = MemInfo()
+    mem_info.read_meminfo()
+
+    # Accéder aux informations
+    print(mem_info)

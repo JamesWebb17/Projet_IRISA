@@ -1,5 +1,14 @@
+""" @package read_file
+This file contains the MemInfo class which is used to read the /proc/meminfo file
+"""
+
+
 class MemInfo:
     def __init__(self):
+        """
+        The constructor for MemInfo class.
+        """
+
         self.mem_total = 0
         self.mem_free = 0
         self.mem_available = 0
@@ -51,6 +60,11 @@ class MemInfo:
         self.hugetlb = 0
 
     def read_meminfo(self):
+        """
+        Read the values of the MemInfo object from the /proc/meminfo file.
+        :return:
+        """
+
         try:
             with open('/proc/meminfo') as f:
                 for line in f:
@@ -155,18 +169,62 @@ class MemInfo:
                         self.hugetlb = int(value.split()[0])
         except FileNotFoundError:
             print("Le fichier /proc/meminfo n'existe pas.")
+            return -1
 
+    def __str__(self):
+        """
+        Return a string representation of the MemInfo object.
+        :return: the string representation of the MemInfo object
+        """
 
-def main():
-    # Exemple d'utilisation
-    mem_info = MemInfo()
-    mem_info.read_meminfo()
-
-    # Accéder aux informations
-    print(f"Total Memory: {mem_info.mem_total} kB")
-    print(f"Free Memory: {mem_info.mem_free} kB")
-    print(f"Available Memory: {mem_info.mem_available} kB")
-    # ... et ainsi de suite pour d'autres informations
-
-if __name__ == "__main__":
-    main()
+        result_str = ""
+        result_str += f"MemTotal: {self.mem_total} kB\n"
+        result_str += f"MemFree: {self.mem_free} kB\n"
+        result_str += f"MemAvailable: {self.mem_available} kB\n"
+        result_str += f"Buffers: {self.buffers} kB\n"
+        result_str += f"Cached: {self.cached} kB\n"
+        result_str += f"SwapCached: {self.swap_cached} kB\n"
+        result_str += f"Active: {self.active} kB\n"
+        result_str += f"Inactive: {self.inactive} kB\n"
+        result_str += f"Active(anon): {self.active_anon} kB\n"
+        result_str += f"Inactive(anon): {self.inactive_anon} kB\n"
+        result_str += f"Active(file): {self.active_file} kB\n"
+        result_str += f"Inactive(file): {self.inactive_file} kB\n"
+        result_str += f"Unevictable: {self.unevictable} kB\n"
+        result_str += f"Mlocked: {self.mlocked} kB\n"
+        result_str += f"SwapTotal: {self.swap_total} kB\n"
+        result_str += f"SwapFree: {self.swap_free} kB\n"
+        result_str += f"Dirty: {self.dirty} kB\n"
+        result_str += f"Writeback: {self.writeback} kB\n"
+        result_str += f"AnonPages: {self.anonPages} kB\n"
+        result_str += f"Mapped: {self.mapped} kB\n"
+        result_str += f"Shmem: {self.shmem} kB\n"
+        result_str += f"Slab: {self.slab} kB\n"
+        result_str += f"SReclaimable: {self.sreclaimable} kB\n"
+        result_str += f"SUnreclaim: {self.sunreclaim} kB\n"
+        result_str += f"KernelStack: {self.kernelstack} kB\n"
+        result_str += f"PageTables: {self.pagetables} kB\n"
+        result_str += f"NFS_Unstable: {self.nfs_unstable} kB\n"
+        result_str += f"Bounce: {self.bounce} kB\n"
+        result_str += f"WritebackTmp: {self.writebacktmp} kB\n"
+        result_str += f"CommitLimit: {self.commitlimit} kB\n"
+        result_str += f"Committed_AS: {self.committed_as} kB\n"
+        result_str += f"VmallocTotal: {self.vmaltotal} kB\n"
+        result_str += f"VmallocUsed: {self.vmallocused} kB\n"
+        result_str += f"VmallocChunk: {self.vmallocchunk} kB\n"
+        result_str += f"Percpu: {self.percpu} kB\n"
+        result_str += f"HardwareCorrupted: {self.hardwarecorrupted} kB\n"
+        result_str += f"AnonHugePages: {self.anonhugepages} kB\n"
+        result_str += f"ShmemHugePages: {self.shmemhugepages} kB\n"
+        result_str += f"ShmemPmdMapped: {self.shmempmdmapped} kB\n"
+        result_str += f"FileHugePages: {self.filehugepages} kB\n"
+        result_str += f"FilePmdMapped: {self.filepmdmapped} kB\n"
+        result_str += f"CmaTotal: {self.cmatotal} kB\n"
+        result_str += f"CmaFree: {self.cmafree} kB\n"
+        result_str += f"HugePages_Total: {self.hugepages_total} kB\n"
+        result_str += f"HugePages_Free: {self.hugepages_free} kB\n"
+        result_str += f"HugePages_Rsvd: {self.hugepages_rsvd} kB\n"
+        result_str += f"HugePages_Surp: {self.hugepages_surp} kB\n"
+        result_str += f"Hugepagesize: {self.hugetpagesize} kB\n"
+        result_str += f"Hugetlb: {self.hugetlb} kB\n"
+        return result_str
