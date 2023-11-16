@@ -53,8 +53,8 @@ def save_data(file_name, data: [Result]):
             csv_writer = csv.writer(csv_file)
 
             # Écriture de l'en-tête
-            csv_writer.writerow(["Name", "Message", "Temp", "Data"])
+            csv_writer.writerow(["Temp", "Data"])
             for temp, data in zip(result.data[0], result.data[1]):
-                csv_writer.writerow([result.name, result.message, temp, data])
+                csv_writer.writerow([temp, data])
 
         print(f"Les données de {result.name} ont été écrites dans {full_csv_file_name}.")
