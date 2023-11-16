@@ -87,8 +87,6 @@ def utilisation_cpus(frequency, interval, result):
         list_cpu.append(calcul_utilisation_cpu(process_info.cpu_stats.get("cpu"), uptime_info, 100))
         list_temps.append(now - start)
 
-        print(process_info.cpu_stats.get("cpu").starttime)
-
         time.sleep(frequency / 60)
 
     result.append(Result("CPU", "Utilisation du cpu (%)", [list_temps, list_cpu]))
