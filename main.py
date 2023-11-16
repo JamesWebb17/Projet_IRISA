@@ -10,10 +10,9 @@ import threading
 
 import shared
 from CPU import utilisation_cpu, utilisation_cpus
-from Memory import utilisation_mem
+from Memory import utilisation_mem, utilisation_mems
 import Arguments
 from Power import utilisation_power
-from Read_File.meminfo import MemInfo
 from shared import flags
 
 
