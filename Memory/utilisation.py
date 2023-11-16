@@ -71,6 +71,6 @@ def utilisation_mems(frequency, interval, result):
 
         time.sleep(frequency / 60)
 
-    result.append(Result("MEM", "Utilisation mémoire (mB)", [list_temps, list_mem]))
+    result.append(Result("MEM", "Utilisation mémoire (KB)", [list_temps, list_mem]))
     flags.THREAD_MEM_END_FLAG = True
     return 0
