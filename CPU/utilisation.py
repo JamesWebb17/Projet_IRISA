@@ -64,6 +64,18 @@ def utilisation_cpu(pid, frequency, interval, result):
     return 0
 
 
+def calcul_utilisation_cpu_systeme(CPU, clock_ticks_per_second):
+    total_time = CPU.utime + CPU.stime
+    idle_time = CPU.calculate_time_idle()
+
+    total_time_sec = total_time / clock_ticks_per_second
+    idle_time_sec = idle_time / clock_ticks_per_second
+
+    cpu_usage = 100 * (1 - idle_time_sec / total_time_sec)
+
+    return cpu_usage
+
+
 def utilisation_cpus(frequency, interval, result):
     """
     Find the CPU usage of a process in files /proc/[pid]/stat and /proc/uptime.
@@ -83,8 +95,8 @@ def utilisation_cpus(frequency, interval, result):
     list_temps = []
     while process_info.read_stat() != -1 and uptime_info.read_proc_uptime() != -1 and now - start < interval:
         now = time.clock_gettime(time.CLOCK_REALTIME)
-        process_info.cpu_stats.get("cpu").starttime = uptime_info.total_time + uptime_info.idle_time
-        list_cpu.append(calcul_utilisation_cpu(process_info.cpu_stats.get("cpu"), uptime_info, 100))
+        #process_info.cpu_stats.get("cpu").starttime = uptime_info.total_time + uptime_info.idle_time
+        list_cpu.append(calcul_utilisation_cpu_systeme(process_info.cpu_stats.get("cpu"), 100))
         list_temps.append(now - start)
 
         time.sleep(frequency / 60)
