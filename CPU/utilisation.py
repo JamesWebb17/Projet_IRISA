@@ -77,7 +77,9 @@ def calcul_utilisation_cpu_systeme(cpu, boot_time, clock_ticks_per_second):
     print("idle_time_sec : " + str(idle_time_sec))
     print("total_time_sec : " + str(total_time_sec))
 
-    cpu_usage = 100 * (1 - ( stattime_sec - idle_time_sec) / total_time_sec)
+    cpu_usage = 100 * (total_time_sec / boot_time)
+
+    #cpu_usage = 100 * (1 - ( stattime_sec - idle_time_sec) / total_time_sec)
 
     return cpu_usage
 
