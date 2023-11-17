@@ -29,8 +29,6 @@ def utilisation_power(frequency, interval, result):
     vddq_vdd2_1_v8_ao = Hwmon()
     vddq_vdd2_1_v8_ao.__set_name__("4", "2")
 
-    uptime_info = Uptime()
-
     start = time.clock_gettime(time.CLOCK_REALTIME)
     now = 0
 
@@ -43,7 +41,7 @@ def utilisation_power(frequency, interval, result):
 
     while (vdd_gpu_soc.read("3", "1") != -1 and vdd_cpu_cv.read("3", "2") != -1 and
            vin_sys_5_v0.read("3", "3") != -1 and vddq_vdd2_1_v8_ao.read("4", "2") != -1 and
-           uptime_info.read_proc_uptime() != -1 and now - start < interval and
+            now - start < interval and
            (flags.THREAD_CPU_END_FLAG is False or flags.THREAD_MEM_END_FLAG is False)):
         now = time.clock_gettime(time.CLOCK_REALTIME)
 

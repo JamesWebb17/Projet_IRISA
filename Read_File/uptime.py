@@ -13,7 +13,7 @@ class Uptime:
         The constructor for Uptime class.
         """
 
-        self.total_time = 0
+        self.total_operational_time = 0
         self.idle_time = 0
 
     def read_proc_uptime(self):
@@ -26,7 +26,7 @@ class Uptime:
             with open('/proc/uptime') as f:
             #with open('./Files/uptime') as f:
                 data = f.read().split()
-                self.total_time = float(data[0])
+                self.total_operational_time = float(data[0])
                 self.idle_time = float(data[1])
         except FileNotFoundError:
             print("Le fichier /proc/uptime n'existe pas.")
@@ -38,5 +38,5 @@ class Uptime:
         :return:
         """
 
-        print(f"Temps total : {self.total_time}")
+        print(f"Temps total de fonctionement: {self.total_operational_time}")
         print(f"Temps d'inactivité : {self.idle_time}")

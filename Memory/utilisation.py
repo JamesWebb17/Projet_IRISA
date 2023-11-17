@@ -24,7 +24,6 @@ def utilisation_mem(pid, frequency, interval, result):
     """
 
     process_info = Statm(pid)
-    uptime_info = Uptime()
 
     start = time.clock_gettime(time.CLOCK_REALTIME)
     now = 0
@@ -32,7 +31,7 @@ def utilisation_mem(pid, frequency, interval, result):
     list_mem = []
     list_temps = []
 
-    while process_info.read_proc_statm() != -1 and uptime_info.read_proc_uptime() != -1 and now - start < interval:
+    while process_info.read_proc_statm() != -1 and now - start < interval:
         now = time.clock_gettime(time.CLOCK_REALTIME)
 
         list_mem.append(process_info.size)
@@ -55,7 +54,6 @@ def utilisation_mems(frequency, interval, result):
     """
 
     process_info = MemInfo()
-    uptime_info = Uptime()
 
     start = time.clock_gettime(time.CLOCK_REALTIME)
     now = 0
@@ -63,7 +61,7 @@ def utilisation_mems(frequency, interval, result):
     list_mem = []
     list_temps = []
 
-    while process_info.read_meminfo() != -1 and uptime_info.read_proc_uptime() != -1 and now - start < interval:
+    while process_info.read_meminfo() != -1 and now - start < interval:
         now = time.clock_gettime(time.CLOCK_REALTIME)
 
         list_mem.append(process_info.mem_total - process_info.mem_free)
