@@ -65,21 +65,21 @@ def utilisation_cpu(pid, frequency, interval, result):
 
 
 def calcul_utilisation_cpu_systeme(cpu, uptime, clock_ticks_per_second):
-    total_time_moy = (cpu.utime + cpu.stime)/12 # en clock ticks
-    idle_time_moy = cpu.idle[0]/12 # en clock ticks
+    #total_time_moy = (cpu.utime + cpu.stime)/12 # en clock ticks
+    #idle_time_moy = cpu.idle[0]/12 # en clock ticks
 
-    total_time_sec = total_time_moy / clock_ticks_per_second
-    idle_time_sec = idle_time_moy / clock_ticks_per_second
+    #total_time_sec = total_time_moy / clock_ticks_per_second
+    #idle_time_sec = idle_time_moy / clock_ticks_per_second
 
+
+    utime_sec = cpu.utime / clock_ticks_per_second
+    stime_sec = cpu.stime / clock_ticks_per_second
     stattime_sec = uptime.total_operational_time + uptime.idle_time
 
-    print("stattime_sec : " + str(stattime_sec))
-    print("idle_time_sec : " + str(idle_time_sec))
-    print("total_time_sec : " + str(total_time_sec))
+    system_uptime_sec = uptime.total_operational_time
 
-    cpu_usage = 100 * (total_time_sec / stattime_sec)
-
-    #cpu_usage = 100 * (1 - ( stattime_sec - idle_time_sec) / total_time_sec)
+    elapsed_sec = system_uptime_sec - stattime_sec
+    cpu_usage = 100 * ((utime_sec + stime_sec) / elapsed_sec)
 
     return cpu_usage
 
