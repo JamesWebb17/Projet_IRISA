@@ -71,7 +71,13 @@ def calcul_utilisation_cpu_systeme(cpu, uptime, clock_ticks_per_second):
     total_time_sec = total_time / clock_ticks_per_second
     idle_time_sec = idle_time / clock_ticks_per_second
 
-    cpu_usage = 100 * (1 - ( (cpu.starttime/clock_ticks_per_second) - idle_time_sec) / total_time_sec)
+    stattime_sec = uptime.total_time / clock_ticks_per_second
+
+    print("stattime_sec : " + str(stattime_sec))
+    print("idle_time_sec : " + str(idle_time_sec))
+    print("total_time_sec : " + str(total_time_sec))
+
+    cpu_usage = 100 * (1 - ( stattime_sec - idle_time_sec) / total_time_sec)
 
     return cpu_usage
 
