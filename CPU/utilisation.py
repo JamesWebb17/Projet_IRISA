@@ -67,7 +67,7 @@ def utilisation_cpu(pid, frequency, interval, result):
 def calcul_utilisation_cpu_systeme(cpu, uptime, clock_ticks_per_second):
     utime_sec = cpu.utime / clock_ticks_per_second
     stime_sec = cpu.stime / clock_ticks_per_second
-    idle_sec = cpu.idle / clock_ticks_per_second
+    idle_sec = cpu.idle[0] / clock_ticks_per_second
 
     cpu_usage = 100 * ((utime_sec + stime_sec) / (utime_sec + stime_sec + idle_sec))
 
@@ -89,16 +89,22 @@ def utilisation_cpus(frequency, interval, result):
     start = time.clock_gettime(time.CLOCK_REALTIME)
     now = 0
 
-    list_cpu = []
+    list_cpu = [[] for i in range(0, 12)]
     list_temps = []
     while process_info.read_stat() != -1 and uptime_info.read_proc_uptime() != -1 and now - start < interval:
         now = time.clock_gettime(time.CLOCK_REALTIME)
-        process_info.cpu_stats.get("cpu").starttime = uptime_info.total_operational_time #+ uptime_info.idle_time
+
+        process_info.cpu_stats.get("cpu").starttime = uptime_info.total_operational_time  # + uptime_info.idle_time
         list_cpu.append(calcul_utilisation_cpu_systeme(process_info.cpu_stats.get("cpu"), uptime_info, 100))
+        for i in range(0, len(list_cpu)):
+            process_info.cpu_stats.get(f"cpu{i}").starttime = uptime_info.total_operational_time #+ uptime_info.idle_time
+            list_cpu.append(calcul_utilisation_cpu_systeme(process_info.cpu_stats.get(f"cpu{i}"), uptime_info, 100))
+
         list_temps.append(now - start)
 
         time.sleep(frequency / 60)
 
-    result.append(Result("CPU", "Utilisation du cpu (%)", [list_temps, list_cpu]))
+    for i in range(0, len(list_cpu)):
+        result.append(Result(f"CPU{i}", "Utilisation du cpu (%)", [list_temps, list_cpu[i]]))
     flags.THREAD_CPU_END_FLAG = True
     return 0
