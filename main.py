@@ -99,8 +99,8 @@ def main():
     if args.Plot:
         if args.Smoothing > 1:
             if flags.VERBOSE_MODE_FLAG:
-                print(f"Smoothing data with {args.SMOOTHING} points...")
-                shared.smooth_data(result, args.SMOOTHING)
+                print(f"Smoothing data with {args.Smoothing} points...")
+                shared.smooth_data(result, args.Smoothing)
             else:
                 print("Plotting data...")
         else:
