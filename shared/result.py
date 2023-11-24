@@ -53,7 +53,10 @@ def smooth_data(data_list: [Result], nb_points: int):
             start_index = max(0, i - nb_points + 1)
             end_index = i + 1
             window_data = data.data[start_index:end_index]
-            average = sum(window_data) / len(window_data)
+            total = 0
+            for j in range(0, len(window_data)):
+                total += window_data[j]
+            average = total / len(window_data)
             result.append(Result(data.name, data.message, average))
     return result
 
