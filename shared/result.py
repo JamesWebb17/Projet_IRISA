@@ -54,8 +54,8 @@ def smooth_data(data_list: [Result], nb_points: int):
         for i in range(0, len(data.data[0])):
             start_index = max(0, i - int(nb_points / 2) + 1)
             end_index = min(len(data.data[0]), i + int(nb_points / 2) + 1)
-            window_data = data.data[0][start_index:end_index]
-            window_time_data = data.data[1][start_index:end_index]
+            window_time_data = data.data[0][start_index:end_index]
+            window_data = data.data[1][start_index:end_index]
             list_data.append(sum(window_data) / len(window_data))
             list_time_data.append(sum(window_time_data) / len(window_time_data))
         result.append(Result(data.name, data.message, [list_time_data, list_data]))
