@@ -44,7 +44,7 @@ def smooth_data(data_list: [Result], nb_points: int):
     Smooth the data in the data_list.
     :param data_list: list of data to smooth
     :param nb_points: number of points to use for smoothing
-    :return:
+    :return: list of smoothed data
     """
 
     result = []
@@ -52,14 +52,15 @@ def smooth_data(data_list: [Result], nb_points: int):
         list_data = []
         list_time_data = []
         for i in range(0, len(data.data[0])):
-            start_index = max(0, i - nb_points + 1)
-            end_index = i + 1
+            start_index = max(0, i - int(nb_points / 2) + 1)
+            end_index = min(len(data.data[0]), i + int(nb_points / 2) + 1)
             window_data = data.data[0][start_index:end_index]
             window_time_data = data.data[1][start_index:end_index]
             list_data.append(sum(window_data) / len(window_data))
             list_time_data.append(sum(window_time_data) / len(window_time_data))
         result.append(Result(data.name, data.message, [list_data, list_time_data]))
     return result
+
 
 def save_data(file_name, data: [Result]):
     """
