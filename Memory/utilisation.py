@@ -37,7 +37,7 @@ def utilisation_mem(pid, frequency, interval, result):
         list_mem.append(process_info.size)
         list_temps.append(now - start)
 
-        time.sleep(frequency / 60)
+        time.sleep(1/frequency)
 
     result.append(Result("MEM", "Utilisation mémoire (mB)", [list_temps, list_mem]))
     flags.THREAD_MEM_END_FLAG = True
@@ -67,7 +67,7 @@ def utilisation_mems(frequency, interval, result):
         list_mem.append(process_info.mem_total - process_info.mem_free)
         list_temps.append(now - start)
 
-        time.sleep(frequency / 60)
+        time.sleep(1/frequency)
 
     result.append(Result("MEM", "Utilisation mémoire (KB)", [list_temps, list_mem]))
     flags.THREAD_MEM_END_FLAG = True

@@ -52,7 +52,7 @@ def utilisation_power(frequency, interval, result):
 
         list_temps.append(now - start)
 
-        time.sleep(frequency / 60)
+        time.sleep(1/frequency)
 
     result.append(
         Result("POWER_" + vdd_gpu_soc.name, "Consomation énergétique (mW)", [list_temps, list_power_vdd_gpu_soc]))

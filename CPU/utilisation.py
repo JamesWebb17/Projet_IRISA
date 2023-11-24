@@ -60,7 +60,7 @@ def utilisation_cpu(pid, frequency, interval, result):
         list_uptime.append(uptime_info.total_operational_time)
         list_temps.append(now - start)
 
-        time.sleep(60/frequency)
+        time.sleep(1/frequency)
 
     list_charge_cpu = calcul_charge_cpu(list_cpu, list_uptime)
     # result.append(Result("CPU", "Utilisation du cpu (%)", [list_temps, list_cpu]))
@@ -130,7 +130,7 @@ def utilisation_cpus(frequency, interval, result):
 
         list_temps.append(now - start)
 
-        time.sleep(60/frequency)
+        time.sleep(1/frequency)
         list_uptime.append(uptime_info.total_operational_time)
 
     result.append(Result(f"CPU", "Utilisation du cpu (%)", [list_temps[:-1], calcul_charge_cpu(list_cpu[0], list_uptime)]))
