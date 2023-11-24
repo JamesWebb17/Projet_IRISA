@@ -120,7 +120,7 @@ def utilisation_cpus(frequency, interval, result):
 
         process_info.cpu_stats.get("cpu").starttime = uptime_info.total_operational_time  # + uptime_info.idle_time
         #list_cpu[0].append(calcul_utilisation_cpu_systeme(process_info.cpu_stats.get("cpu"), uptime_info, 100))
-        list_cpu[0].append(process_info.cpu_stats.get(f"cpu").utime)
+        list_cpu[0].append(process_info.cpu_stats.get(f"cpu").utime + process_info.cpu_stats.get(f"cpu").stime)
 
         for i in range(1, len(list_cpu)):
             #process_info.cpu_stats.get(
