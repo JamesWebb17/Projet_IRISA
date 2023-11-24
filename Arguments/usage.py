@@ -17,7 +17,6 @@ def usage():
     parser = argparse.ArgumentParser(description="Process performance monitoring program.", add_help=False)
 
     help = parser.add_argument_group(title="Help")
-    obligatory = parser.add_argument_group(title="Mandatory arguments")
     optional = parser.add_argument_group(title="Optional arguments")
 
     # Help
@@ -30,15 +29,13 @@ def usage():
                       help='Activates verbose mode. Default: False',
                       default=False)
 
-    # Obligatory
-    obligatory.add_argument('-p', '--pid',
-                            help='PID of the process to be inspected',
-                            type=int,
-                            required=False,
-                            dest='PID',
-                            default=0)
-
     # Optional
+    optional.add_argument('-p', '--pid',
+                          help='PID of the process to be inspected',
+                          type=int,
+                          required=False,
+                          dest='PID',
+                          default=0)
     optional.add_argument('-cpu', '--cpu',
                           help='Displays CPU usage. Default: False',
                           action='store_true',
@@ -74,6 +71,11 @@ def usage():
                           action='store_true',
                           dest='Plot',
                           default=False)
+    optional.add_argument('-smo', '--smoothing',
+                          help='Smoothing of the graphics. This is the number of points used for the average. Default: 1',
+                          type=int,
+                          dest='Smoothing',
+                          default=1)
     optional.add_argument('-s', '--save',
                           help='Writes all data to files; Default: False',
                           type=str,

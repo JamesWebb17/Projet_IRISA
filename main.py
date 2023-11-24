@@ -97,9 +97,14 @@ def main():
             print(f"End of thread {t.name}")
 
     if args.Plot:
-        if flags.VERBOSE_MODE_FLAG:
-            print("Plotting data...")
-        shared.plot_data(result)
+        if args.SMOOTHING > 1:
+            if flags.VERBOSE_MODE_FLAG:
+                print(f"Smoothing data with {args.SMOOTHING} points...")
+                shared.smooth_data(result, args.SMOOTHING)
+            else:
+                print("Plotting data...")
+        else:
+            shared.plot_data(result)
 
     if args.Save:
         if flags.VERBOSE_MODE_FLAG:

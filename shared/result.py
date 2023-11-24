@@ -39,6 +39,24 @@ def plot_data(data_list: [Result]):
     plt.show()
 
 
+def smooth_data(data_list: [Result], nb_points: int):
+    """
+    Smooth the data in the data_list.
+    :param data_list: list of data to smooth
+    :param nb_points: number of points to use for smoothing
+    :return:
+    """
+
+    result = []
+    for data in data_list:
+        for i in range(0, len(data.data[0])):
+            start_index = max(0, i - nb_points + 1)
+            end_index = i + 1
+            window_data = data[start_index:end_index]
+            average = sum(window_data) / len(window_data)
+            result.append(Result(data.name, data.message, average))
+    return result
+
 def save_data(file_name, data: [Result]):
     """
     Save the data in a csv file.
