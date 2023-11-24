@@ -54,17 +54,38 @@ def utilisation_cpu(pid, frequency, interval, result):
     list_temps = []
     while process_info.read_proc_stat() != -1 and uptime_info.read_proc_uptime() != -1 and now - start < interval:
         now = time.clock_gettime(time.CLOCK_REALTIME)
-        list_cpu.append(calcul_utilisation_cpu(process_info, uptime_info, 100))
+        # list_cpu.append(calcul_utilisation_cpu(process_info, uptime_info, 100))
+        list_cpu.append(process_info)
         list_temps.append(now - start)
 
         time.sleep(frequency / 60)
 
-    result.append(Result("CPU", "Utilisation du cpu (%)", [list_temps, list_cpu]))
+    list_charge_cpu = calcul_charge_cpu(list_cpu, list_temps)
+    # result.append(Result("CPU", "Utilisation du cpu (%)", [list_temps, list_cpu]))
+    result.append(Result("CPU", "Utilisation du cpu (%)", [list_temps[:-1], list_charge_cpu]))
     flags.THREAD_CPU_END_FLAG = True
     return 0
 
 
-def calcul_utilisation_cpu_systeme(cpu, uptime, clock_ticks_per_second):
+def calcul_charge_cpu(list_stat, list_temps):
+    list_charge_cpu = []
+    for i in range(0, len(list_stat) - 1):
+        cpu_utime = list_stat[i + 1].utime - list_stat[i].utime
+        cpu_time = list_temps[i + 1] - list_temps[i]
+
+        list_charge_cpu.append(cpu_utime / cpu_time * 100)
+
+    return list_charge_cpu
+
+
+def calcul_utilisation_cpu_systeme(cpu, clock_ticks_per_second):
+    """
+    Calculate the CPU usage for each heart.
+    :param cpu:
+    :param clock_ticks_per_second:
+    :return:
+    """
+
     utime_sec = cpu.utime / clock_ticks_per_second
     stime_sec = cpu.stime / clock_ticks_per_second
     idle_sec = cpu.idle[0] / clock_ticks_per_second
@@ -76,7 +97,7 @@ def calcul_utilisation_cpu_systeme(cpu, uptime, clock_ticks_per_second):
 
 def utilisation_cpus(frequency, interval, result):
     """
-    Find the CPU usage of a process in files /proc/[pid]/stat and /proc/uptime.
+    Find the CPU usage of a process in files /proc/stat and /proc/uptime.
     :param frequency: point per second wanted
     :param interval: interval of time wanted
     :param result: array for sending the result to the main thread
@@ -97,7 +118,8 @@ def utilisation_cpus(frequency, interval, result):
         process_info.cpu_stats.get("cpu").starttime = uptime_info.total_operational_time  # + uptime_info.idle_time
         list_cpu[0].append(calcul_utilisation_cpu_systeme(process_info.cpu_stats.get("cpu"), uptime_info, 100))
         for i in range(1, len(list_cpu)):
-            process_info.cpu_stats.get(f"cpu{i}").starttime = uptime_info.total_operational_time #+ uptime_info.idle_time
+            process_info.cpu_stats.get(
+                f"cpu{i}").starttime = uptime_info.total_operational_time  # + uptime_info.idle_time
             list_cpu[i].append(calcul_utilisation_cpu_systeme(process_info.cpu_stats.get(f"cpu{i}"), uptime_info, 100))
 
         list_temps.append(now - start)
