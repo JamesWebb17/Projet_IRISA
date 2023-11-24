@@ -112,7 +112,7 @@ def utilisation_cpus(frequency, interval, result):
     start = time.clock_gettime(time.CLOCK_REALTIME)
     now = 0
 
-    list_cpu = [[] for i in range(0, 12)]
+    list_cpu = [[] for i in range(0, 13)]
     list_temps = []
     list_uptime = []
     while process_info.read_stat() != -1 and uptime_info.read_proc_uptime() != -1 and now - start < interval:
@@ -123,18 +123,19 @@ def utilisation_cpus(frequency, interval, result):
         list_cpu[0].append(process_info.cpu_stats.get(f"cpu").utime)
 
         for i in range(1, len(list_cpu)):
-            process_info.cpu_stats.get(
-                f"cpu{i}").starttime = uptime_info.total_operational_time  # + uptime_info.idle_time
+            #process_info.cpu_stats.get(
+                #f"cpu{i-1}").starttime = uptime_info.total_operational_time  # + uptime_info.idle_time
             #list_cpu[i].append(calcul_utilisation_cpu_systeme(process_info.cpu_stats.get(f"cpu{i}"), uptime_info, 100))
-            list_cpu[i].append(process_info.cpu_stats.get(f"cpu{i}").utime + process_info.cpu_stats.get(f"cpu{i}").stime)
+            list_cpu[i].append(process_info.cpu_stats.get(f"cpu{i-1}").utime + process_info.cpu_stats.get(f"cpu{i-1}").stime)
 
         list_temps.append(now - start)
 
         time.sleep(frequency / 60)
         list_uptime.append(uptime_info.total_operational_time + uptime_info.idle_time)
 
-    for i in range(0, len(list_cpu)):
+    result.append(Result(f"CPU", "Utilisation du cpu (%)", [list_temps[:-1], calcul_charge_cpu(list_cpu[0], list_uptime)]))
+    for i in range(1, len(list_cpu)):
         #result.append(Result(f"CPU{i}", "Utilisation du cpu (%)", [list_temps, list_cpu[i]]))
-        result.append(Result(f"CPU{i}", "Utilisation du cpu (%)", [list_temps[:-1], calcul_charge_cpu(list_cpu[i], list_uptime)]))
+        result.append(Result(f"CPU{i-1}", "Utilisation du cpu (%)", [list_temps[:-1], calcul_charge_cpu(list_cpu[i], list_uptime)]))
     flags.THREAD_CPU_END_FLAG = True
     return 0
