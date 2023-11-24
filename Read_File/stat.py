@@ -49,6 +49,7 @@ class CPU:
             cal += elt
         return cal
 
+
 class Stat:
     """
     Documentation for Stat class
