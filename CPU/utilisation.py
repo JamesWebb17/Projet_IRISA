@@ -51,27 +51,29 @@ def utilisation_cpu(pid, frequency, interval, result):
     now = 0
 
     list_cpu = []
+    list_uptime = []
     list_temps = []
     while process_info.read_proc_stat() != -1 and uptime_info.read_proc_uptime() != -1 and now - start < interval:
         now = time.clock_gettime(time.CLOCK_REALTIME)
         # list_cpu.append(calcul_utilisation_cpu(process_info, uptime_info, 100))
-        list_cpu.append(process_info)
+        list_cpu.append(process_info.utime)
+        list_uptime.append(uptime_info.total_operational_time + uptime_info.idle_time)
         list_temps.append(now - start)
 
         time.sleep(frequency / 60)
 
-    list_charge_cpu = calcul_charge_cpu(list_cpu, list_temps)
+    list_charge_cpu = calcul_charge_cpu(list_cpu, list_uptime)
     # result.append(Result("CPU", "Utilisation du cpu (%)", [list_temps, list_cpu]))
     result.append(Result("CPU", "Utilisation du cpu (%)", [list_temps[:-1], list_charge_cpu]))
     flags.THREAD_CPU_END_FLAG = True
     return 0
 
 
-def calcul_charge_cpu(list_stat, list_temps):
+def calcul_charge_cpu(list_utime, list_uptime):
     list_charge_cpu = []
-    for i in range(0, len(list_stat) - 1):
-        cpu_utime = list_stat[i + 1].utime - list_stat[i].utime
-        cpu_time = list_temps[i + 1] - list_temps[i]
+    for i in range(0, len(list_uptime) - 1):
+        cpu_utime = (list_utime[i + 1] - list_utime[i])/100
+        cpu_time = list_uptime[i + 1] - list_uptime[i]
 
         list_charge_cpu.append(cpu_utime / cpu_time * 100)
 
