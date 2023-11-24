@@ -68,10 +68,10 @@ def main():
         print("Monitoring CPU information without a focus on a process")
         if args.ALL:
             if flags.VERBOSE_MODE_FLAG:
-                print("Mode selected is ALL : CPU, POWER")
+                print("Mode selected is ALL : CPU, MEM, POWER")
 
             threads.append(threading.Thread(target=utilisation_cpus, args=(args.Frequency, args.Interval, result), name="CPU"))
-            threads.append(threading.Thread(target=utilisation_mems, args=(args.Frequency, args.Interval, result),name="POWER"))
+            threads.append(threading.Thread(target=utilisation_mems, args=(args.Frequency, args.Interval, result),name="MEM"))
             threads.append(threading.Thread(target=utilisation_power, args=(args.Frequency, args.Interval, result),name="POWER"))
         else:
             if args.CPU:
@@ -79,6 +79,10 @@ def main():
                     print("Mode selected is CPU")
                 threads.append(
                     threading.Thread(target=utilisation_cpus, args=(args.Frequency, args.Interval, result), name="CPU"))
+            if args.MEM:
+                if flags.VERBOSE_MODE_FLAG:
+                    print("Mode selected is MEM")
+                    threads.append(threading.Thread(target=utilisation_mems, args=(args.Frequency, args.Interval, result),name="MEM"))
             if args.POWER:
                 if flags.VERBOSE_MODE_FLAG:
                     print("Mode selected is POWER")
