@@ -40,6 +40,9 @@ def main():
                 threading.Thread(target=utilisation_cpu, args=(args.PID, args.Frequency, args.Interval, result),
                                  name="CPU"))
             threads.append(
+                threading.Thread(target=utilisation_gpu, args=(args.PID, args.Frequency, args.Interval, result),
+                                 name="GPU"))
+            threads.append(
                 threading.Thread(target=utilisation_mem, args=(args.PID, args.Frequency, args.Interval, result),
                                  name="MEM"))
             threads.append(
@@ -52,6 +55,11 @@ def main():
                 threads.append(
                     threading.Thread(target=utilisation_cpu, args=(args.PID, args.Frequency, args.Interval, result),
                                      name="CPU"))
+            if args.GPU:
+                if flags.VERBOSE_MODE_FLAG:
+                    print("Mode selected is GPU")
+                threads.append(
+                    threading.Thread(target=utilisation_gpu, args=(args.Frequency, args.Interval, result), name="GPU"))
             if args.MEM:
                 if flags.VERBOSE_MODE_FLAG:
                     print("Mode selected is MEM")
@@ -69,9 +77,10 @@ def main():
         print("Monitoring CPU information without a focus on a process")
         if args.ALL:
             if flags.VERBOSE_MODE_FLAG:
-                print("Mode selected is ALL : CPU, MEM, POWER")
+                print("Mode selected is ALL : CPU, GPU, MEM, POWER")
 
             threads.append(threading.Thread(target=utilisation_cpus, args=(args.Frequency, args.Interval, result), name="CPU"))
+            threads.append(threading.Thread(target=utilisation_gpu, args=(args.Frequency, args.Interval, result), name="GPU"))
             threads.append(threading.Thread(target=utilisation_mems, args=(args.Frequency, args.Interval, result),name="MEM"))
             threads.append(threading.Thread(target=utilisation_power, args=(args.Frequency, args.Interval, result),name="POWER"))
         else:
