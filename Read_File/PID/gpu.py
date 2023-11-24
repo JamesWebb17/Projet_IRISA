@@ -42,7 +42,7 @@ class GPU:
 
         try:
             with open("/sys/devices/gpu.0/load", "r") as file:
-                self.load = file.readline()
+                self.load = int(file.readline())
         except FileNotFoundError:
             print(f"Le fichier /sys/devices/gpu.0/load n'existe pas.")
             return -1
