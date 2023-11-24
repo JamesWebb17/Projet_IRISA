@@ -41,6 +41,11 @@ def usage():
                           action='store_true',
                           dest='CPU',
                           default=False)
+    optional.add_argument('-gpu', '--gpu',
+                          help='Displays GPU usage. Default: False',
+                          action='store_true',
+                          dest='GPU',
+                          default=False)
     optional.add_argument('-mem', '--memory',
                           help='Displays memory usage. Default: False',
                           action='store_true',

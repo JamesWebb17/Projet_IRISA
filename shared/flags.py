@@ -22,3 +22,7 @@ flag that indicates if the thread for the POWER is running or not.
 """
 THREAD_POWER_END_FLAG = False
 
+"""
+flag that indicates if the thread for the GPU is running or not.
+"""
+THREAD_GPU_END_FLAG = False

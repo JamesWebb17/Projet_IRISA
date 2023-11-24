@@ -10,6 +10,7 @@ import threading
 
 import shared
 from CPU import utilisation_cpu, utilisation_cpus
+from GPU.utilisation import utilisation_gpu
 from Memory import utilisation_mem, utilisation_mems
 import Arguments
 from Power import utilisation_power
@@ -79,6 +80,11 @@ def main():
                     print("Mode selected is CPU")
                 threads.append(
                     threading.Thread(target=utilisation_cpus, args=(args.Frequency, args.Interval, result), name="CPU"))
+            if args.GPU:
+                if flags.VERBOSE_MODE_FLAG:
+                    print("Mode selected is GPU")
+                threads.append(
+                    threading.Thread(target=utilisation_gpu, args=(args.Frequency, args.Interval, result), name="GPU"))
             if args.MEM:
                 if flags.VERBOSE_MODE_FLAG:
                     print("Mode selected is MEM")

@@ -8,7 +8,6 @@ Function for calculating the Memory usage of a process.
 import time
 
 from Read_File.PID import Statm
-from Read_File import Uptime
 from Read_File.meminfo import MemInfo
 from shared import Result, flags
 
