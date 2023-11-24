@@ -57,7 +57,7 @@ def utilisation_cpu(pid, frequency, interval, result):
         now = time.clock_gettime(time.CLOCK_REALTIME)
         # list_cpu.append(calcul_utilisation_cpu(process_info, uptime_info, 100))
         list_cpu.append(process_info.utime + process_info.stime)
-        list_uptime.append(uptime_info.total_operational_time + uptime_info.idle_time)
+        list_uptime.append(uptime_info.total_operational_time)
         list_temps.append(now - start)
 
         time.sleep(frequency / 60)
@@ -131,7 +131,7 @@ def utilisation_cpus(frequency, interval, result):
         list_temps.append(now - start)
 
         time.sleep(frequency / 60)
-        list_uptime.append(uptime_info.total_operational_time + uptime_info.idle_time)
+        list_uptime.append(uptime_info.total_operational_time)
 
     result.append(Result(f"CPU", "Utilisation du cpu (%)", [list_temps[:-1], calcul_charge_cpu(list_cpu[0], list_uptime)]))
     for i in range(1, len(list_cpu)):
