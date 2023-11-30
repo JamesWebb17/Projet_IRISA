@@ -134,7 +134,16 @@ def main():
     if args.Read is not None:
         if flags.VERBOSE_MODE_FLAG:
             print("Reading data...")
-        shared.plot_data([shared.read_data(args.Read, Result("test", "test", []))])
+        if args.Smoothing > 1:
+            if flags.VERBOSE_MODE_FLAG:
+                print(f"Smoothing data with {args.Smoothing} points...")
+                shared.plot_data(shared.smooth_data([shared.read_data(args.Read, Result("test", "test", []))], args.Smoothing))
+            else:
+                print("Plotting data...")
+        else:
+            shared.plot_data([shared.read_data(args.Read, Result("test", "test", []))])
+
+
 
     return 0
 
