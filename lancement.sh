@@ -14,3 +14,5 @@ echo "Le PID du processus Julia est : $pid"
 
 top -a -s 1 -o power -l 0 -stats  pid,cpu,cpu_me,cpu_others,time,csw,power,mem,purg,vsize,vprvt,kprvt,kshrd, -pid 26789
 
+sudo powermetrics --show-process-energy -i 100 -n 1 | grep -o -E "(Sampled system activity.*|.*10833.*)"
+
