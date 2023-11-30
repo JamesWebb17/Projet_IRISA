@@ -95,6 +95,6 @@ def read_data(path: str, result: [Result]):
     with open(path, mode='r', newline='') as csv_file:
         csv_reader = csv.reader(csv_file)
         for row in csv_reader:
-            data.append([row[0], row[1]])
+            data.append([int(row[0]), int(row[1])])
     result.data = data
     return result
