@@ -94,6 +94,12 @@ def read_data(path: str, result: [Result]):
     data = []
     with open(path, mode='r', newline='') as csv_file:
         csv_reader = csv.reader(csv_file)
+        premiere_ligne = next(csv_reader, None)
+        if premiere_ligne is not None:
+            premiere_colonne = str(premiere_ligne[0])
+            deuxieme_colonne = str(premiere_ligne[1])
+            print(f"Première colonne : {premiere_colonne}")
+            print(f"Deuxième colonne : {deuxieme_colonne}")
         for row in csv_reader:
             data.append([int(row[0]), int(row[1])])
     result.data = data
