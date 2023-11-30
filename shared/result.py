@@ -90,7 +90,8 @@ def read_data(path: str, result: Result):
     :param result:
     :return: result with the data
     """
-
+    time_data = []
+    data_data = []
     with open(path, mode='r', newline='') as csv_file:
         csv_reader = csv.reader(csv_file)
         premiere_ligne = next(csv_reader, None)
@@ -100,7 +101,7 @@ def read_data(path: str, result: Result):
             print(f"Première colonne : {premiere_colonne}")
             print(f"Deuxième colonne : {deuxieme_colonne}")
         for row in csv_reader:
-            time_data = float(row[0])
-            data_data = float(row[1])
+            time_data.append(float(row[0]))
+            data_data.append(float(row[1]))
     result.data = [time_data, data_data]
     return result
