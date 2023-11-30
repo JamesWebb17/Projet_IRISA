@@ -101,6 +101,6 @@ def read_data(path: str, result: [Result]):
             print(f"Première colonne : {premiere_colonne}")
             print(f"Deuxième colonne : {deuxieme_colonne}")
         for row in csv_reader:
-            data.append([int(row[0]), int(row[1])])
+            data.append([float(row[0]), float(row[1])])
     result.data = data
     return result
