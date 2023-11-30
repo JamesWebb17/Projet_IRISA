@@ -134,7 +134,7 @@ def main():
     if args.Read is not None:
         if flags.VERBOSE_MODE_FLAG:
             print("Reading data...")
-        shared.plot_data(shared.read_data(args.Read, Result("test", "test", [])))
+        shared.plot_data([shared.read_data(args.Read, Result("test", "test", []))])
 
     return 0
 
