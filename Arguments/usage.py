@@ -31,7 +31,7 @@ def usage():
 
     # Optional
     optional.add_argument('-p', '--pid',
-                          help='PID of the process to be inspected',
+                          help='PID of the process to be inspected. Default: 0 (all processes)',
                           type=int,
                           required=False,
                           dest='PID',
@@ -62,7 +62,7 @@ def usage():
                           dest='ALL',
                           default=False)
     optional.add_argument('-f', '--frequency',
-                          help='Number of points per second wanted default: 10',
+                          help='Number of points per second wanted. Default: 10',
                           type=int,
                           dest='Frequency',
                           default=10)
@@ -85,6 +85,11 @@ def usage():
                           help='Writes all data to files; Default: False',
                           type=str,
                           dest='Save')
+    optional.add_argument('-r', '--read',
+                          help='Reads data from files; Default: None',
+                          type=str,
+                          dest='Read',
+                          default=None)
     args = parser.parse_args()
 
     return args

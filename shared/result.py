@@ -81,3 +81,20 @@ def save_data(file_name, data: [Result]):
                 csv_writer.writerow([temp, data])
 
         print(f"Les données de {result.name} ont été écrites dans {full_csv_file_name}.")
+
+
+def read_data(path: str, result: [Result]):
+    """
+    Read the data in a csv file.
+    :param path: path of the file
+    :param result:
+    :return: result with the data
+    """
+
+    data = []
+    with open(path, mode='r', newline='') as csv_file:
+        csv_reader = csv.reader(csv_file)
+        for row in csv_reader:
+            data.append(row)
+    result.data = data
+    return result

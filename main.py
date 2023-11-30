@@ -14,7 +14,7 @@ from GPU.utilisation import utilisation_gpu
 from Memory import utilisation_mem, utilisation_mems
 import Arguments
 from Power import utilisation_power
-from shared import flags
+from shared import flags, Result
 
 
 def main():
@@ -33,6 +33,7 @@ def main():
 
     if args.PID != 0:
         print("Monitoring information for the process with PID " + str(args.PID))
+        print("WARNING : Only CPU and Memory are specific to a process")
         if args.ALL:
             if flags.VERBOSE_MODE_FLAG:
                 print("Mode selected is ALL : CPU, GPU, MEM, POWER")
@@ -129,6 +130,11 @@ def main():
         if flags.VERBOSE_MODE_FLAG:
             print("Saving data...")
         shared.save_data(args.Save, result)
+
+    if args.Read is not None:
+        if flags.VERBOSE_MODE_FLAG:
+            print("Reading data...")
+        shared.read_data(args.Read, Result("test", "test", []))
 
     return 0
 
