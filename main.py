@@ -35,12 +35,12 @@ def main():
         print("Monitoring information for the process with PID " + str(args.PID))
         if args.ALL:
             if flags.VERBOSE_MODE_FLAG:
-                print("Mode selected is ALL : CPU, MEM, POWER")
+                print("Mode selected is ALL : CPU, GPU, MEM, POWER")
             threads.append(
                 threading.Thread(target=utilisation_cpu, args=(args.PID, args.Frequency, args.Interval, result),
                                  name="CPU"))
             threads.append(
-                threading.Thread(target=utilisation_gpu, args=(args.PID, args.Frequency, args.Interval, result),
+                threading.Thread(target=utilisation_gpu, args=(args.Frequency, args.Interval, result),
                                  name="GPU"))
             threads.append(
                 threading.Thread(target=utilisation_mem, args=(args.PID, args.Frequency, args.Interval, result),
