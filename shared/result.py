@@ -83,7 +83,7 @@ def save_data(file_name, data: [Result]):
         print(f"Les données de {result.name} ont été écrites dans {full_csv_file_name}.")
 
 
-def read_data(path: str, result: [Result]):
+def read_data(path: str, result: Result):
     """
     Read the data in a csv file.
     :param path: path of the file
