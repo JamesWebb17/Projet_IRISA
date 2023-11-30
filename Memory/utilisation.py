@@ -33,12 +33,12 @@ def utilisation_mem(pid, frequency, interval, result):
     while process_info.read_proc_statm() != -1 and now - start < interval:
         now = time.clock_gettime(time.CLOCK_REALTIME)
 
-        list_mem.append(process_info.size)
+        list_mem.append(process_info.size * 4096)
         list_temps.append(now - start)
 
         time.sleep(1/frequency)
 
-    result.append(Result("MEM", "Utilisation mémoire (mB)", [list_temps, list_mem]))
+    result.append(Result("MEM", "Utilisation mémoire (kB)", [list_temps, list_mem]))
     flags.THREAD_MEM_END_FLAG = True
     return 0
 
