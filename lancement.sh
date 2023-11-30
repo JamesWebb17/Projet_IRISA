@@ -12,4 +12,5 @@ gnome-terminal --tab -- bash -c "cd ~/Desktop/NOP_DeepLearning; juliadev -t auto
 pid=$!
 echo "Le PID du processus Julia est : $pid"
 
+top -a -s 1 -o power -l 0 -stats  pid,cpu,cpu_me,cpu_others,time,csw,power,mem,purg,vsize,vprvt,kprvt,kshrd, -pid 26789
 
