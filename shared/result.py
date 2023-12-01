@@ -76,7 +76,7 @@ def save_data(file_name, data: [Result]):
             csv_writer = csv.writer(csv_file)
 
             # Écriture de l'en-tête
-            csv_writer.writerow(["Temp", "Data"])
+            csv_writer.writerow(["Temp", result.message])
             for temp, data in zip(result.data[0], result.data[1]):
                 csv_writer.writerow([temp, data])
 
@@ -96,10 +96,7 @@ def read_data(path: str, result: Result):
         csv_reader = csv.reader(csv_file)
         premiere_ligne = next(csv_reader, None)
         if premiere_ligne is not None:
-            premiere_colonne = str(premiere_ligne[0])
-            deuxieme_colonne = str(premiere_ligne[1])
-            print(f"Première colonne : {premiere_colonne}")
-            print(f"Deuxième colonne : {deuxieme_colonne}")
+            result.message = str(premiere_ligne[1])
         for row in csv_reader:
             time_data.append(float(row[0]))
             data_data.append(float(row[1]))
