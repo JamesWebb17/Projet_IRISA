@@ -18,6 +18,7 @@ def usage():
 
     help = parser.add_argument_group(title="Help")
     optional = parser.add_argument_group(title="Optional arguments")
+    display = parser.add_argument_group(title="Display options")
 
     # Help
     help.add_argument('-h', '--help',
@@ -90,6 +91,23 @@ def usage():
                           type=str,
                           dest='Read',
                           default=None)
+
+    # Interface
+    display.add_argument('-t', '--terminal',
+                         help='Activates the terminal interface. Default: True',
+                         action='store_true',
+                         dest='Terminal',
+                         default=True)
+    display.add_argument('-w', '--web',
+                         help='Activates the web interface. Default: False',
+                         action='store_true',
+                         dest='Web',
+                         default=False)
+    display.add_argument('-gui', '--gui',
+                         help='Activates the GUI. Default: False',
+                         action='store_true',
+                         dest='GUI',
+                         default=False)
     args = parser.parse_args()
 
     return args

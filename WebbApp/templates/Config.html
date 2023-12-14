@@ -71,19 +71,19 @@
             <h3>Monitoring options :</h3>
             <div class="form-check">
                 <input type="checkbox" id="cpuCheckbox" name="cpuCheckbox" class="form-check-input">
-                <label for="cpuCheckbox" class="form-check-label">This option allows you to observe the CPU</label>
+                <label for="cpuCheckbox" class="form-check-label">Observation of CPU</label>
             </div>
             <div class="form-check">
                 <input type="checkbox" id="gpuCheckbox" name="gpuCheckbox" class="form-check-input">
-                <label for="gpuCheckbox" class="form-check-label">This option allows you to observe the GPU</label>
+                <label for="gpuCheckbox" class="form-check-label">Observation of the GPU</label>
             </div>
             <div class="form-check">
                 <input type="checkbox" id="memoryCheckbox" name="memoryCheckbox" class="form-check-input">
-                <label for="memoryCheckbox" class="form-check-label">This option allows you to observe the memory</label>
+                <label for="memoryCheckbox" class="form-check-label">Observation of the memory</label>
             </div>
             <div class="form-check">
                 <input type="checkbox" id="powerCheckbox" name="powerCheckbox" class="form-check-input">
-                <label for="powerCheckbox" class="form-check-label">This option allows you to observe the power</label>
+                <label for="powerCheckbox" class="form-check-label">Observation of the power</label>
             </div>
         </div>
 
@@ -91,7 +91,7 @@
             <h3>Advanced options :</h3>
             <div class="form-check">
                 <input type="checkbox" id="freqCheckbox" name="freqCheckbox" class="form-check-input">
-                <label for="freqCheckbox" class="form-check-label">This option allows you to change the frequency value</label>
+                <label for="freqCheckbox" class="form-check-label">Change the frequency value</label>
             </div>
             <div id="freq-additional-case" style="display: none;" class="mt-2">
                 <div class="form-group">
@@ -101,7 +101,7 @@
             </div>
             <div class="form-check">
                 <input type="checkbox" id="intervalCheckbox" name="intervalCheckbox" class="form-check-input">
-                <label for="intervalCheckbox" class="form-check-label">This option allows you to change the interval value</label>
+                <label for="intervalCheckbox" class="form-check-label">Change the interval value</label>
             </div>
             <div id="inerval-additional-case" style="display: none;" class="mt-2">
                 <div class="form-group">
@@ -111,7 +111,7 @@
             </div>
             <div class="form-check">
                 <input type="checkbox" id="smoothingCheckbox" name="smoothingCheckbox" class="form-check-input">
-                <label for="smoothingCheckbox" class="form-check-label">This option allows you to change the smoothing value</label>
+                <label for="smoothingCheckbox" class="form-check-label">Change the smoothing value</label>
             </div>
             <div id="smoothing-additional-case" style="display: none;" class="mt-2">
                 <div class="form-group">
@@ -122,20 +122,27 @@
         </div>
 
          <div class="form-group">
-            <h3>Graphics option</h3>
+            <h3>Graphics options</h3>
             <div class="form-check">
                 <input type="checkbox" id="plotCheckbox" name="plotCheckbox" class="form-check-input">
-                <label for="plotCheckbox" class="form-check-label">This option allows you to plot the result</label>
+                <label for="plotCheckbox" class="form-check-label">Plot the result</label>
             </div>
             <div class="form-check">
                 <input type="checkbox" id="saveCheckbox" name="saveCheckbox" class="form-check-input">
-                <label for="saveCheckbox" class="form-check-label">This option allows you to save the result on files</label>
+                <label for="saveCheckbox" class="form-check-label">Save the result on files</label>
             </div>
              <div id="save-additional-case" style="display: none;" class="mt-2">
              <div class="form-group">
-                    <label for="saveInput">Files name prefix :</label>
-                    <input type="text" name="saveInput" id="saveInput" class="form-control" placeholder="0">
+                    <label for="SaveInput">Files name prefix :</label>
+                    <input type="text" name="SaveInput" id="SaveInput" class="form-control" placeholder="0">
                 </div>
+            </div>
+         </div>
+        <div class="form-group">
+            <h3>Debug option</h3>
+            <div class="form-check">
+                <input type="checkbox" id="verboseCheckbox" name="verboseCheckbox" class="form-check-input">
+                <label for="verboseCheckbox" class="form-check-label">Plot the result</label>
             </div>
          </div>
         <button type="submit" class="btn btn-primary">Save this configuration</button>
