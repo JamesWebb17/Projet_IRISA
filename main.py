@@ -142,9 +142,6 @@ def main():
                 print("Plotting data...")
         else:
             shared.plot_data([shared.read_data(args.Read, Result("test", "test", []))])
-
-
-
     return 0
 
 
