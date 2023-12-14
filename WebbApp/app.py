@@ -89,7 +89,7 @@ def save_configuration():
 @app.route('/start_program', methods=['POST'])
 def start():
     command = "python3 ../main.py -i 10 -cpu"
-    subprocess.run(command, shell=True)
+    subprocess.Popen(command, shell=True)
     print(config)
     return render_template('Start.html')
 
