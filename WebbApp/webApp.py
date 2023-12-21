@@ -43,11 +43,12 @@ class Config:
                f"Smoothing Value: {self.smoothing_value}\n" \
                f"Save Enabled: {self.save_enabled}\n" \
                f"Save Value: {self.save_value}\n" \
-                f"Verbose: {self.verbose}\n"
+               f"Verbose: {self.verbose}\n"
 
 
 config = Config()
 result = []
+
 
 @app.route('/')
 def index():
@@ -56,7 +57,12 @@ def index():
 
 @app.route('/configuration')
 def configuration():
-    return render_template('Config.html')
+    return render_template('Config.html', my_config=config)
+
+
+@app.route('/help')
+def help():
+    return render_template('Help.html')
 
 
 @app.route('/save_configuration', methods=['POST'])
@@ -131,5 +137,9 @@ def start():
     return render_template('Start.html')
 
 
-if __name__ == '__main__':
+def start_app():
     app.run(debug=True, host='localhost', port=8080)
+
+
+if __name__ == '__main__':
+    start_app()

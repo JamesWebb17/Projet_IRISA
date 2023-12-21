@@ -16,6 +16,8 @@ import Arguments
 from Power import utilisation_power
 from shared import flags, Result
 
+from WebbApp import start_app
+
 
 def main():
     """
@@ -27,6 +29,10 @@ def main():
     result = []
 
     args = Arguments.usage()
+
+    if args.Web:
+        start_app()
+        return 0
 
     if args.verbose:
         flags.VERBOSE_MODE_FLAG = True
@@ -142,9 +148,6 @@ def main():
                 print("Plotting data...")
         else:
             shared.plot_data([shared.read_data(args.Read, Result("test", "test", []))])
-
-    if args.Web:
-        return Result
 
     return 0
 
